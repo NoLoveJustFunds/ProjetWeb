@@ -6,6 +6,8 @@ body {
     width: auto;
 }
 
+/*--------------------------------------------Element avant le container-----------------------------------------------*/
+
 #Titre {
     text-align: center;
     color: white;
@@ -16,8 +18,8 @@ body {
     justify-content: center;
     margin-top: 100px;
     position: relative;
+  
 }
-
 #questions {
     display: block;
     width: 300px;
@@ -26,25 +28,36 @@ body {
 }
 
 #PlacementChrono {
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    margin: 10px auto; 
     position: relative;
 }
 
 #Temp {
-    position: absolute;
+    font-size: 18px; 
+    color: #66C3D1; 
+    font-weight: bold;
+    display: block;
+    margin-top: 20px;
     display: none;
+    margin-right: 10px;
+    position: absolute;
     right: 23vw;
     top: 4vw;
-    font-size: 24px;
-    color: #fab45e;
 }
 
 #Image {
+    width: 70px; 
+    height:70px;
+    display: block;
+    animation: rotateHorizontal 4s linear infinite; 
+    margin-left: 90px;
     position: absolute;
     display: none;
     right: 22vw;
     top: 10px;
-    width: 60px;
-    animation: rotateHorizontal 4s linear infinite;
 }
 
 @keyframes rotateHorizontal {
@@ -55,6 +68,9 @@ body {
         transform: rotateY(360deg);
     }
 }
+
+
+/*--------------------------------------------Container principal-----------------------------------------------*/
 
 .quizContainer {
     display: block;
@@ -111,7 +127,7 @@ a {
 }
 
 #Reponse1, #Reponse2, #Reponse3, #Reponse4 {
-    margin: 10px; /* Réduit pour mieux espacer 4 boutons */
+    margin: 10px; 
 }
 
 #Bouton1, #Bouton2, #Bouton3, #Bouton4 {
@@ -134,6 +150,9 @@ a {
     outline: 1px solid #283c63;
 }
 
+
+/*--------------------------------------------Element apres le container-----------------------------------------------*/
+
 #startButton, #returnButton {
     border-radius: 5px;
     border: 1px solid #8e93c0;
@@ -143,11 +162,10 @@ a {
     color: white;
 }
 
-
-
 #startButton:hover, #returnButton:hover ,#returnButton2:hover{
     box-shadow: 0 0 15px 5px #283c63;
 }
+
 #returnButton2{
     border-radius: 5px;
     border: 1px solid #8e93c0;
@@ -156,12 +174,11 @@ a {
     background: linear-gradient(90deg, #8E2DE2, #4A00E0);
     color: white;
 }
+
 #returnButton{
     margin: auto;
     display: none;
-
 }
-
 
 .correct {
     background-color: #4CAF50 !important;
@@ -173,40 +190,3 @@ a {
     border: 2px solid #D32F2F !important;
 }
 
-#PlacementChrono {
-    display: flex; /* Utiliser flex pour aligner l'image et le texte */
-    align-items: center;
-    justify-content: center;
-    margin: 10px auto; /* Centrer horizontalement */
-
-
-    
-}
-
-#Temp {
-    font-size: 18px; /* Taille de texte plus lisible */
-    color: #66C3D1; /* Garder la couleur demandée */
-    font-weight: bold;
-    display: block; /* Afficher par défaut */
-    margin-top: 20px;
-    display: none;
-    margin-right: 10px;
-}
-
-#Image {
-    width: 70px; /* Taille raisonnable pour l'image */
-    height:70px;
-    display: block; /* Afficher par défaut */
-    animation: rotateHorizontal 4s linear infinite; /* Garder l'animation */
-    margin-left: 90px;
-
-}
-
-@keyframes rotateHorizontal {
-    from {
-        transform: rotateY(0deg);
-    }
-    to {
-        transform: rotateY(360deg);
-    }
-}
