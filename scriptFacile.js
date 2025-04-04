@@ -106,6 +106,8 @@ function displayQuestion() {
 
         window.quizScore = score; //Variable globale pour le score du joueur
         window.quizTotal = quizData.length;
+
+        document.getElementById('questions').value = quizData.length;
        
 
         document.getElementById('scoreInput').value = window.quizScore; //Modification de scoreInput pour y placer quizScore
@@ -158,7 +160,7 @@ function displayQuestion() {
     bouton4.textContent = currentQuestion.choices[3]?.text;
     bouton4.value = currentQuestion.choices[3]?.id || '';
 
-    document.getElementById('questions').value = currentQuestionIndex + 1; //Incrémantation pour la question précédente
+    document.getElementById('questions').value = currentQuestionIndex;
 
     startTimer(); //Nouveau chrono pour la question précédente
 }

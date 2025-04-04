@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+    
     const bouton = document.querySelector(".Bouton");
     const menu = document.querySelector(".ElementDeroulant");
 
@@ -6,13 +7,15 @@ document.addEventListener("DOMContentLoaded", function () {
         menu.classList.toggle("visible");
     });
 
-    // Fermer le menu si on clique en dehors
+    // Ferme le menu si on clique en dehors
     document.addEventListener("click", function (event) {
         if (!menu.contains(event.target) && !bouton.contains(event.target)) {
             menu.classList.remove("visible");
         }
     });
 });
+
+/*------------ Fonction pour afficher le mot de passe------------------------------*/
 
 function afficherPassword() {
     const passwordInput = document.getElementById('password');

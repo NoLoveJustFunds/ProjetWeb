@@ -40,13 +40,15 @@
         <p class="register-link">
             Vous n'avez pas de compte? <a href="enregistrement.php">Inscrivez-vous</a>
         </p>
-    </div>
+</div>
+
     <script src="script.js"></script>
 
 </body>
 <?php
 
 session_start();
+
 $EmailAdmin ="Admin123@gmail.com"; //Email de login pour admin
 $MDPAdmin ="Admin123"; //MDP de login pour admin
 
@@ -59,7 +61,7 @@ try {
         [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
     );
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {  // Vérifier si le formulaire a été soumis
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {  // Vérifie si le formulaire a été soumis
 
         // Récupération des données du formulaire
         $email = $_POST['email'] ?? '';
@@ -76,10 +78,10 @@ try {
         if ($UtilisateursTab) {  
             $HashMDP = $UtilisateursTab['Mdp_User']; // Mot de passe hashé depuis la BDD
 
-            // Vérifier si le mot de passe saisi correspond au hash dans la BDD ( avec password_verifyc)
+            // Vérifie si le mot de passe saisi correspond au hash dans la BDD ( avec password_verifyc)
             if (password_verify($password, $HashMDP)) {
 
-                // Stocker les informations de l'utilisateur dans la session
+                // Stocke les informations de l'utilisateur dans la session
                 $_SESSION['Mail_User'] = $email;
                 $_SESSION['Nom_User'] = $UtilisateursTab['Nom_User'];
                 $_SESSION['Prenom_User'] = $UtilisateursTab['Prenom_User'];

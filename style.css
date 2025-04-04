@@ -8,7 +8,6 @@
   body {
     background-image:url("FondAccueil.jpg"); 
     background-repeat: no-repeat;
-
     color: #e0e0e0; 
     height: 100vh; 
     display: flex; 
@@ -17,6 +16,8 @@
     padding: 20px;
   }
   
+/*--------------------------------------Container principal-----------------------------------------------*/
+
   .container {
     background: #1e1e1e; 
     border-radius: 15px;
