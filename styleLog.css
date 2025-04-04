@@ -13,25 +13,15 @@ body {
     padding: 20px;
 }
 
-/* Style du container principal */
-#Container {
-    background: #1e1e1e; 
-    border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); 
-    width: 100%; 
-    max-width: 400px; 
-    padding: 25px; 
-    position: relative; 
-    overflow: visible;
-    text-align: center;
-    margin: auto;
-    bottom: 50px;
-}
-.Espace{
-    margin-bottom: 30px;
+
+/*-------------------------------------Partie avant le container --------------------------------*/
+
+.Connexion {
+    font-size: 22px;
+    font-weight: 500;
+    margin: 40px;
 }
 
-/* Style du titre principal */
 .Titre1, .Connexion {
     text-align: center;
     color: white;
@@ -83,13 +73,27 @@ body {
     fill: #8E2DE2;
   }
 
-.Connexion {
-    font-size: 22px;
-    font-weight: 500;
-    margin: 40px;
+
+
+/*-------------------------------------Partie container ----------------------------------------*/
+
+#Container {
+    background: #1e1e1e; 
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); 
+    width: 100%; 
+    max-width: 400px; 
+    padding: 25px; 
+    position: relative; 
+    overflow: visible;
+    text-align: center;
+    margin: auto;
+    bottom: 50px;
+}
+.Espace{
+    margin-bottom: 30px;
 }
 
-/* Style des champs d'entrée */
 .form-group fieldset {
     border: none;
     margin-bottom: 16px;
@@ -113,7 +117,7 @@ body {
     box-shadow: 0 0 0 3px rgba(142, 45, 226, 0.2);
 }
 
-/* Style du bouton */
+
 .ContainerB {
     display: flex;
     justify-content: center;

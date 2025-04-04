@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,7 +71,7 @@ try {
         $email = $_POST['Mail'] ?? '';
         $password = $_POST['MDP'] ?? '';
 
-        // Vérification des champs vides
+        // Vérification des champs vides lors de l'inscription
         if (empty($name) || empty($surname) || empty($phoneNumber) || empty($email) || empty($password)) {
             throw new Exception("Tous les champs doivent être remplis.");
         }
