@@ -13,7 +13,7 @@
     </header>
 
     <div id="PlacementBarProgress">
-        <progress id="questions" value ="0" max="11" ></progress>
+        <progress id="questions" value ="0" max="10" ></progress>
     </div>
     <div id="PlacementChrono">
         <span id="Temp">20</span>

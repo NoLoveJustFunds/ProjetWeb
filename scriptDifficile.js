@@ -103,6 +103,8 @@ function displayQuestion() {
 
         window.quizScore = score;
         window.quizTotal = quizData.length;
+
+        document.getElementById('questions').value = quizData.length;
       
 
         const scoreInput = document.getElementById('scoreInput');
