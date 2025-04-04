@@ -1,0 +1,175 @@
+body{
+    font-family: "Baloo Bhai 2";
+    background-image:url("FondAccueil.jpg"); 
+    min-height: 100vh;
+}
+/* Titre principal */
+.Titre1 {
+    display: block;
+    margin: 50px auto;
+    width: 210px;
+    text-align: center;
+    font-size: 24px; /* Plus lisible */
+    padding: 10px; /* Ajout d'un padding pour un meilleur rendu */
+    font-size: 40px;
+    color: rgb(212, 212, 212);
+}
+
+
+/* Conteneur principal */
+#Container {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #8e93c0;
+    width: 600px;
+    max-width: 90%;
+    margin: 15px auto;
+    text-align: center;
+    padding: 20px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    transition: box-shadow 0.3s ease;
+    box-shadow: 0 0 15px 5px #283c63;
+    position: relative; /* Ajouté pour que #Intitule se positionne correctement */
+    z-index: 2;
+}
+
+#Intitule{
+    position: absolute;
+    top: 10px; /* Distance du haut */
+    left: 10px; /* Distance de la droite */
+    border: 1px solid black;
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    background-color: #283c63; /* Ajoute un fond pour voir le texte */
+    padding: 5px 5px; /* Ajoute de l'espace pour le texte */
+    border-radius: 5px; /* Coins arrondis */
+    z-index: 3; 
+    
+}
+
+.Element{
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    left: 13px;
+
+}
+
+
+input:hover , .btn:hover{
+    box-shadow: 0 0 15px 5px #283c63; /* Brillance cyan au survol */
+}
+
+#Retour{
+    display: block;
+    margin-top:20px;
+    margin-right: 10px;
+    text-align: center;
+}
+
+#returnButton{
+    border-radius: 5px;
+    border: 1px solid #8e93c0;
+    width: 100px;
+    height: 30px;
+    background: linear-gradient(90deg, #8E2DE2, #4A00E0);
+    color: white;
+    font-size: 20px;
+
+}
+
+#returnButton:hover {
+    transform: translateY(-2px); 
+    box-shadow: 0 7px 20px rgba(142, 45, 226, 0.3);
+    box-shadow: 0 0 15px 5px #283c63;
+  }
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+table {
+    width: 100%;  /* Tableau occupe 100% de la largeur du conteneur #GraphiqueClassement */
+    border-collapse: collapse;
+    position: relative;
+    left: 1px;
+}
+
+td , th{
+    width: 25%;
+    text-align: center;
+    word-wrap: break-word;
+    border-right: 1px solid #8e93c0;
+    border-bottom: 1px solid #8e93c0;
+    border-radius: 4px;
+    padding: 2px;
+    
+}
+
+th{
+    font-size: 20px;
+    position:relative;
+}
+
+
+
+/* Style des fieldsets */
+fieldset {
+    border:none;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* Style des inputs */
+input {
+    display: flex;
+    width: 75%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #8e93c0;
+    border-radius: 5px;
+}
+/*Style de l'input ( contour ) */
+input:focus, textarea:focus, select:focus {
+    outline: 1px solid #283c63;
+}
+
+  
+/* Style du lien "Pas de compte ?" */
+.Informations2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px; /* Espace entre les éléments */
+    margin-top: 30px;
+    color: rgb(212, 212, 212);
+}
+
+/* Lien creer un compte non souligner*/
+.Souligner{
+    text-decoration: none;
+    color: rgb(212, 212, 212);
+}
+
+
+#GraphiqueClassement{
+    display: block;
+    width: 90%;
+    margin: auto;
+    border: 1px solid #8e93c0;
+    background-color: transparent;
+    color: white;
+    height: 150px;
+    padding:0px; /* Ajoute de l'espace pour le texte */
+    overflow-x: auto;
+    overflow-y: auto;
+    border-radius: 4px; /* Coins arrondis */
+
+}
+
+

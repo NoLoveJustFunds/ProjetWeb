@@ -1,0 +1,200 @@
+body{
+    font-family: "Baloo Bhai 2";
+    background-image:url("FondAccueil.jpg"); 
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    width: auto;
+    
+}
+
+#Titre{
+    text-align: center;
+    color: white;
+
+}
+#PlacementBarProgress{
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    position: relative;
+    
+}
+
+#questions{
+    display: block;
+    width: 300px;
+    height: 15px;
+    box-shadow: 0 0 15px 5px #283c63; 
+
+}
+#PlacementChrono{
+    position: relative;
+}
+
+#Temp {
+    position: absolute;
+    display: none;
+    right: 23vw;
+    top: 4vw;
+    font-size: 24px;
+    color: #fab45e;
+    
+}
+
+#Image{
+    position: absolute;
+    display: none;
+    right: 22vw;
+    top: 10px;
+    width: 60px;
+    animation: rotateHorizontal 4s linear infinite;
+}
+
+@keyframes rotateHorizontal{
+    from{
+        transform: rotateY(0deg);
+    }to{
+        transform: rotateY(360deg);
+    }
+}
+
+.quizContainer{
+    display: block;
+    border: 1px solid #8e93c0;
+    width: 800px;
+    height: 300px;
+    margin: auto;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px 5px #283c63; 
+
+}
+#ContainerBouton{
+    width: 400px;
+    text-align: center;
+    margin: auto;
+}
+
+#quizIntro ,#Retour{
+    display: block;
+    margin-top:20px;
+    margin-right: 10px;
+    
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+#IntituleQuestion{
+    text-align: center;
+    font-size: 23px;
+    color: white;
+    margin: auto;
+    margin-top: 10px;
+
+}
+
+
+
+#ElementReponse2{ /*block avec les reponses*/
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    margin: auto;
+    margin-top: 50px;
+    color: white;
+    border: 1px solid #8e93c0;
+    box-shadow: 0 0 15px 5px #283c63; 
+    display: none;
+}
+
+#TexteDescriptif{/*Texte de description avant l'affichage du quiz*/
+    color: white;
+    text-align: center;
+    font-size: 20px;
+}
+
+#startButton:hover ,#returnButton:hover
+{
+    box-shadow: 0 0 15px 5px #283c63; 
+}
+
+
+#startButton,#returnButton{
+    border-radius: 5px;
+    border: 1px solid #8e93c0;
+    width: 100px;
+    height: 30px;
+    background: linear-gradient(90deg, #8E2DE2, #4A00E0);
+    color: white;
+}
+
+#startButton:hover,#returnButton:hover,#returnButton2:hover{
+    box-shadow: 0 7px 20px rgba(142, 45, 226, 0.3);
+    box-shadow: 0 0 15px 5px #283c63;
+}
+
+
+#returnButton2{
+    border-radius: 5px;
+    border: 1px solid #8e93c0;
+    width: 100px;
+    height: 30px;
+    background: linear-gradient(90deg, #8E2DE2, #4A00E0);
+    color: white;
+}
+#returnButton{
+    margin: auto;
+    display: none;
+
+}
+
+
+.correct {
+    background-color: #4CAF50 !important;
+    border: 2px solid #388E3C !important;
+}
+
+.incorrect {
+    background-color: #F44336 !important;
+    border: 2px solid #D32F2F !important;
+}
+
+#PlacementChrono {
+    display: flex; /* Utiliser flex pour aligner l'image et le texte */
+    align-items: center;
+    justify-content: center;
+    margin: 10px auto; /* Centrer horizontalement */
+
+}
+
+#Temp {
+    font-size: 18px; /* Taille de texte plus lisible */
+    color: #8E2DE2; /* Garder la couleur demandée */
+    font-weight: bold;
+    display: block; /* Afficher par défaut */
+    margin-top: 20px;
+    display: none;
+    margin-right: 10px;
+}
+
+#Image {
+    width: 70px; /* Taille raisonnable pour l'image */
+    height:70px;
+    display: block; /* Afficher par défaut */
+    animation: rotateHorizontal 4s linear infinite; /* Garder l'animation */
+    margin-left: 90px;
+
+}
+
+@keyframes rotateHorizontal {
+    from {
+        transform: rotateY(0deg);
+    }
+    to {
+        transform: rotateY(360deg);
+    }
+}
+

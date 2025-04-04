@@ -1,0 +1,238 @@
+Je dois récupérer les données dans ma base de donnée et les afficher aux bon endroits dans le fichier html mais ca ne marche pas :
+
+Voici mon code : 
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyQuiz</title>
+    <link rel="stylesheet" href="styleQuizFacile.css">
+</head>
+
+
+<body>
+    <header>
+        <h1 id="Titre">QuizzyLand</h1>
+    </header>
+
+    <div id="PlacementBarProgress">
+        <progress id="questions" value ="0" max="10" ></progress>
+    </div>
+    <div id="PlacementChrono">
+        <span id="Temp">20</span>
+        <img src="Chrono.png" id="Image">
+    </div>
+
+    <!-- Container pour les questions et réponses -->
+    <div class="quizContainer">
+        <form action="QuizFacile.php" method="POST">
+        <div id="IntituleQuestion"></div>
+
+        <div id="Remercier">
+            <p>Remerciement</p>
+        </div>
+
+        <div id="TexteDescriptif">
+            <p>Bienvenue dans le Quiz Facile</p>
+            <p id="Dessous">Chaque questions aura 3 propositions qui vous seront proposées</p><br>
+            <p>Vous aurez 20 secondes par questions</p><br>
+            <p>A vous de faire les bons choix. Bonne chance !</p>
+            <br>
+        </div>
+
+        <div id="ElementReponse">
+            <div id="Reponse1">
+                <button value="" id="Bouton1"></button>
+            </div>
+            <div id="Reponse2">
+                <button value="" id="Bouton2"></button>
+            </div>
+            <div id="Reponse3">
+                <button value="" id="Bouton3"></button>
+            </div>
+        </div>
+
+        <div id="ElementReponse2">
+            <div id="Reponse4">
+                <button value="" id="Bouton4"></button>
+            </div>
+            <div id="Reponse5">
+                <button value="" id="Bouton5"></button>
+            </div>
+        </div>
+
+        </form>
+
+    </div>
+
+    <!-- Section de démarrage du quiz -->
+    <div id="ContainerBouton">
+        <div id="quizIntro">
+            <button id="startButton">Lancer Quiz</button>
+        </div>
+
+        <div id="Retour">
+            <a href="QuizPage.php"><button id="returnButton">Retour</button></a>
+        </div>
+    </div>
+
+    <!-- Conteneur pour afficher les questions dynamiquement -->
+    <div id="quizContainer"></div>
+
+    <script src="scriptFacile.js"></script>
+</body>
+
+<?php
+session_start(); // Démarrer la session pour stocker les informations du quiz
+
+try {
+    // Connexion à la base de données
+    $mysqlClient = new PDO('mysql:host=localhost;dbname=test;charset=utf8', 'root', '', [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ]);
+
+    // Récupérer les questions et les réponses associées
+    $quizId = $_SESSION['quiz_id'];
+    $query = "
+        SELECT q.Id_Question, q.Question_Text, c.Id_Choix, c.Choix_Text
+        FROM Questions q
+        JOIN Choix c ON q.Id_Question = c.Id_Question
+        WHERE q.Id_Quiz = :quizId
+        ORDER BY q.Id_Question";
+    $stmt = $mysqlClient->prepare($query);
+    $stmt->bindValue(':quizId', $quizId, PDO::PARAM_INT);
+    $stmt->execute();
+
+    // Préparer un tableau pour stocker les questions et leurs choix
+    $quizData = [];
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $questionId = $row['Id_Question'];
+        if (!isset($quizData[$questionId])) {
+            $quizData[$questionId] = [
+                'question' => $row['Question_Text'],
+                'choices' => []
+            ];
+        }
+        $quizData[$questionId]['choices'][] = [
+            'id' => $row['Id_Choix'],
+            'text' => $row['Choix_Text']
+        ];
+    }
+
+    // Convertir les données en JSON pour les envoyer à JavaScript
+    echo json_encode(array_values($quizData)); // Réorganiser les données pour les rendre accessibles
+} catch (Exception $e) {
+    echo json_encode(['error' => 'Erreur : ' . $e->getMessage()]);
+}
+?>
+
+
+
+
+</html>
+
+
+mon code JS : 
+
+let currentQuestionIndex = 0;  // Index pour suivre la question actuelle
+
+// Fonction pour charger et afficher les questions
+function loadQuizData() {
+    fetch('QuizFacile.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+                return;
+            }
+
+            // Références aux éléments du DOM
+            let questionContainer = document.getElementById('IntituleQuestion');
+            let bouton1 = document.getElementById('Bouton1');
+            let bouton2 = document.getElementById('Bouton2');
+            let bouton3 = document.getElementById('Bouton3');
+
+            // Charger la question actuelle
+            let currentQuestion = data[currentQuestionIndex];
+
+            // Afficher la question
+            questionContainer.innerHTML = currentQuestion.question;
+
+            // Afficher les réponses
+            bouton1.innerHTML = currentQuestion.choices[0].text;
+            bouton1.value = currentQuestion.choices[0].id;
+
+            bouton2.innerHTML = currentQuestion.choices[1].text;
+            bouton2.value = currentQuestion.choices[1].id;
+
+            bouton3.innerHTML = currentQuestion.choices[2].text;
+            bouton3.value = currentQuestion.choices[2].id;
+        });
+}
+
+// Fonction pour passer à la question suivante
+function nextQuestion() {
+    currentQuestionIndex++;
+    loadQuizData();
+}
+
+// Charger la première question lorsque le bouton "Lancer Quiz" est cliqué
+document.getElementById('startButton').addEventListener('click', function() {
+    loadQuizData();
+
+    // Désactiver le bouton de démarrage une fois le quiz commencé
+    this.disabled = true;
+    
+    // Ajouter un bouton "Suivant" pour avancer à la question suivante
+    let nextButton = document.createElement('button');
+    nextButton.textContent = "Suivant";
+    nextButton.addEventListener('click', nextQuestion);
+    document.getElementById('ContainerBouton').appendChild(nextButton);
+});
+
+La structure de mes bases : 
+
+
+CREATE TABLE Quiz (
+    Id_Quiz INT AUTO_INCREMENT PRIMARY KEY,
+    Type_Quiz ENUM('QCM', 'Vrai/Faux', 'Réponse Libre') NOT NULL,
+    Niveau ENUM('Facile', 'Moyen', 'Difficile') NOT NULL,
+    Date_Creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE Questions (
+    Id_Question INT AUTO_INCREMENT PRIMARY KEY,
+    Question_Text TEXT NOT NULL,
+    Id_Quiz INT,
+    FOREIGN KEY (Id_Quiz) REFERENCES Quiz(Id_Quiz)
+);
+
+
+CREATE TABLE Choix (
+    Id_Choix INT AUTO_INCREMENT PRIMARY KEY,
+    Id_Question INT,
+    Choix_Text VARCHAR(255) NOT NULL,
+    FOREIGN KEY (Id_Question) REFERENCES Questions(Id_Question)
+);
+
+
+CREATE TABLE Reponse (
+    Id_Reponse INT AUTO_INCREMENT PRIMARY KEY,
+    Id_User INT,
+    Id_Question INT,
+    Reponse_Valeur TEXT,  -- Peut être un texte libre, ou un choix
+    Type_Reponse ENUM('Choix', 'Vrai/Faux', 'Libre') NOT NULL,
+    FOREIGN KEY (Id_User) REFERENCES Utilisateurs(Id_User),
+    FOREIGN KEY (Id_Question) REFERENCES Questions(Id_Question)
+);
+
+CREATE TABLE ReponseCorrecte (
+    Id_ReponseCorrecte INT AUTO_INCREMENT PRIMARY KEY,
+    Id_Question INT,
+    Reponse_Correcte TEXT,
+    Type_Reponse TEXT,
+    FOREIGN KEY (Id_Question) REFERENCES Questions(Id_Question)
+);

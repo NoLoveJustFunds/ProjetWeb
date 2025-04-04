@@ -1,0 +1,146 @@
+* {
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+}
+
+body {
+    background-image:url("FondAccueil.jpg"); 
+    background-repeat: no-repeat;
+    color: #e0e0e0; 
+    height: 100vh; 
+    padding: 20px;
+}
+
+/* Style du container principal */
+#Container {
+    background: #1e1e1e; 
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); 
+    width: 100%; 
+    max-width: 400px; 
+    padding: 25px; 
+    position: relative; 
+    overflow: visible;
+    text-align: center;
+    margin: auto;
+    bottom: 50px;
+}
+.Espace{
+    margin-bottom: 30px;
+}
+
+/* Style du titre principal */
+.Titre1, .Connexion {
+    text-align: center;
+    color: white;
+}
+
+.Connexion{
+    position:relative;
+    top: 40px;
+}
+
+.Titre1 {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 70px;
+}
+
+.logo {
+    margin-bottom: 25px; 
+    text-align: center;
+
+  }
+
+  .profile-icon {
+    width: 30px; 
+    height: 30px; 
+    border-radius: 50%; 
+    background: #2a2a2a; 
+    margin: 0 auto 18px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    border: 2px solid #4A00E0; 
+    position: relative;
+    bottom:80px;
+    box-shadow: 0 0 20px rgba(74, 0, 224, 0.3);
+  }
+
+  #redimension{
+    width: 75px;
+    height: 75px;
+    border: 2px solid #4A00E0; 
+    border-radius: 50%; 
+   
+  }
+
+  .profile-icon svg {
+    width: 35px; 
+    height: 35px; 
+    fill: #8E2DE2;
+  }
+
+.Connexion {
+    font-size: 22px;
+    font-weight: 500;
+    margin: 40px;
+}
+
+/* Style des champs d'entrée */
+.form-group fieldset {
+    border: none;
+    margin-bottom: 16px;
+    position: relative;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    background: #2a2a2a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 15px;
+    transition: all 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #8E2DE2;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(142, 45, 226, 0.2);
+}
+
+/* Style du bouton */
+.ContainerB {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.btn {
+    background: linear-gradient(90deg, #8E2DE2, #4A00E0);
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s;
+
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(142, 45, 226, 0.3);
+    box-shadow: 0 0 15px 5px #283c63;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
