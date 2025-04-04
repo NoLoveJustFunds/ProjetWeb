@@ -70,7 +70,7 @@
     $mailUser = $_SESSION['Mail_User'];
     error_log("Mail_User dans la session : " . $mailUser);
 
-    // Récupérer les données actuelles de l'utilisateur (Score_User et Total_Play)
+    // Récupère les données actuelles de l'utilisateur (Score_User et Total_Play)
     try {
         $mysqlClient = new PDO('mysql:host=localhost;dbname=test;charset=utf8', 'root', '', [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
@@ -97,9 +97,9 @@
         $_SESSION['Total_Play'] = 0;
     }
 
-    // Gérer la soumission du score (déclenchée manuellement par le bouton Retour)
+    // Gère la soumission du score (déclenchée manuellement par le bouton Retour)
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        error_log("Méthode POST détectée");
+        
 
         if (isset($_POST['score']) && isset($_POST['total'])) {
             $score = (int)$_POST['score'];
@@ -111,7 +111,7 @@
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
                 ]);
 
-                // Vérifier si l'utilisateur a déjà une entrée dans la table Score
+                // Vérifie si l'utilisateur a déjà une entrée dans la table Score
                 $checkQuery = "SELECT COUNT(*) FROM Score WHERE Mail_User = :mail";
                 $checkStmt = $mysqlClient->prepare($checkQuery);
                 $checkStmt->bindParam(':mail', $mailUser, PDO::PARAM_STR);
@@ -120,7 +120,7 @@
           
 
                 if ($userExists) {
-                    // Mettre à jour l'entrée existante en additionnant les valeurs
+                    // Met à jour l'entrée existante en additionnant les valeurs
                     $updateQuery = "UPDATE Score SET Score_User = Score_User + :score, Total_Play = Total_Play + :total WHERE Mail_User = :mail";
                     $updateStmt = $mysqlClient->prepare($updateQuery);
                     $updateStmt->bindParam(':score', $score, PDO::PARAM_INT);
@@ -129,7 +129,7 @@
                     $updateStmt->execute();
                     
                 } else {
-                    // Insérer une nouvelle entrée
+                    // Insère une nouvelle entrée
                     $insertQuery = "INSERT INTO Score (Score_User, Total_Play, Mail_User) VALUES (:score, :total, :mail)";
                     $insertStmt = $mysqlClient->prepare($insertQuery);
                     $insertStmt->bindParam(':score', $score, PDO::PARAM_INT);
@@ -139,8 +139,8 @@
                     
                 }
 
-                // Mettre à jour les valeurs dans la session
-                // Récupérer les nouvelles valeurs cumulées pour la session
+                
+                // Récupère les nouvelles valeurs cumulées pour la session
                 $fetchQuery = "SELECT Score_User, Total_Play FROM Score WHERE Mail_User = :mail";
                 $fetchStmt = $mysqlClient->prepare($fetchQuery);
                 $fetchStmt->bindParam(':mail', $mailUser, PDO::PARAM_STR);
@@ -207,7 +207,7 @@
 
     <script>
         const quizDataInitial = <?php echo json_encode($selectedQuestions); ?>;
-        console.log("Données injectées : ", quizDataInitial);
+      
     </script>
 
    

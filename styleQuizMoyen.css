@@ -7,10 +7,11 @@ body{
     
 }
 
+/*----------------------------------Element avant le container --------------------------------*/
+
 #Titre{
     text-align: center;
     color: white;
-
 }
 
 #PlacementBarProgress{
@@ -18,7 +19,6 @@ body{
     justify-content: center;
     margin-top: 100px;
     position: relative;
-    
 }
 
 #questions{
@@ -26,31 +26,43 @@ body{
     width: 300px;
     height: 15px;
     box-shadow: 0 0 15px 5px #283c63; 
-
 }
 
-#PlacementChrono{
+#PlacementChrono {
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    margin: 10px auto; 
     position: relative;
 }
 
 #Temp {
-    position: absolute;
+    font-size: 18px; 
+    color: #66C3D1;
+    font-weight: bold;
+    display: block; 
+    margin-top: 20px;
     display: none;
+    margin-right: 10px;
+    position: absolute;
     right: 23vw;
-    top: 4vw;
+    top: 5vw;
     font-size: 24px;
     color: #fab45e;
-    
 }
 
-#Image{
+#Image {
     position: absolute;
     display: none;
-    right: 22vw;
-    top: 10px;
-    width: 60px;
+    width: 70px;
+    height:70px;
+    display: block;
     animation: rotateHorizontal 4s linear infinite;
+    margin-left: 90px;
+    top: 25px;
+    right: 22vw;
 }
+
 
 @keyframes rotateHorizontal{
     from{
@@ -59,6 +71,9 @@ body{
         transform: rotateY(360deg);
     }
 }
+
+
+/*----------------------------------Container principal -------------------------------------*/
 
 .quizContainer{
     display: block;
@@ -71,25 +86,17 @@ body{
     box-shadow: 0 0 15px 5px #283c63; 
 
 }
-#ContainerBouton{
-    width: 400px;
-    text-align: center;
-    margin: auto;
-}
 
 #quizIntro ,#Retour{
     display: block;
     margin-top:20px;
     margin-right: 10px;
-    
 }
 
 a {
     text-decoration: none;
     color: white;
 }
-
-
 
 #IntituleQuestion{
     text-align: center;
@@ -111,11 +118,9 @@ a {
     margin: auto;
     margin-top: 50px;
     display: none;
-
-
 }
 
-#ElementReponse,#ElementReponse2{ /*block avec les reponses*/
+#ElementReponse,#ElementReponse2{ 
     border-radius: 10px;
     width: 300px;
     text-align: center;
@@ -127,15 +132,13 @@ a {
     display: none;
 }
 
-#TexteDescriptif{/*Texte de description avant l'affichage du quiz*/
+#TexteDescriptif{
     color: white;
     text-align: center;
     font-size: 20px;
     
 
 }
-
-
 #Reponse1 , #Reponse2 ,#Reponse3 ,#Reponse4{
     margin: 17px;
 }
@@ -150,8 +153,6 @@ a {
     background-color: transparent;
 }
 
-
-
 #Bouton1:hover , #Bouton2:hover ,#Bouton3:hover , #Bouton4:hover,#startButton:hover ,#returnButton:hover
 {
     box-shadow: 0 0 15px 5px #283c63; 
@@ -159,6 +160,15 @@ a {
 
 #Bouton1:focus , #Bouton2:focus ,#Bouton3:focus , #Bouton4:focus{
     outline: 1px solid #283c63;
+}
+
+
+/*----------------------------------Container secondaire -------------------------------------*/
+
+#ContainerBouton{
+    width: 400px;
+    text-align: center;
+    margin: auto;
 }
 
 #startButton,#returnButton{
@@ -200,41 +210,5 @@ a {
 }
 
 
-#PlacementChrono {
-    display: flex; /* Utiliser flex pour aligner l'image et le texte */
-    align-items: center;
-    justify-content: center;
-    margin: 10px auto; /* Centrer horizontalement */
 
-
-    
-}
-
-#Temp {
-    font-size: 18px; /* Taille de texte plus lisible */
-    color: #66C3D1;/* Garder la couleur demandée */
-    font-weight: bold;
-    display: block; /* Afficher par défaut */
-    margin-top: 20px;
-    display: none;
-    margin-right: 10px;
-}
-
-#Image {
-    width: 70px; /* Taille raisonnable pour l'image */
-    height:70px;
-    display: block; /* Afficher par défaut */
-    animation: rotateHorizontal 4s linear infinite; /* Garder l'animation */
-    margin-left: 90px;
-
-}
-
-@keyframes rotateHorizontal {
-    from {
-        transform: rotateY(0deg);
-    }
-    to {
-        transform: rotateY(360deg);
-    }
-}
 

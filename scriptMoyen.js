@@ -5,12 +5,12 @@ let timer;
 let timeLeft = 20;
 let isRunning = false;
 
+
 function loadQuizData() {
-    console.log("loadQuizData appelé");
+ 
     quizData = quizDataInitial;
 
     if (quizData.error) {
-        alert(quizData.error);
         return;
     }
 
@@ -23,6 +23,9 @@ function loadQuizData() {
     displayQuestion();
 }
 
+
+//----------------------------------Fonction du Chrono----------------------------------------------------------//
+
 function startTimer() {
     if (!isRunning) {
         document.getElementById("Temp").style.display = "block";
@@ -32,9 +35,7 @@ function startTimer() {
         const tempElement = document.getElementById("Temp");
         if (tempElement) {
             tempElement.innerText = timeLeft;
-            tempElement.style.color = "#fab45e"; // Réinitialiser la couleur
-        } else {
-            console.error("Erreur : Élément #Temp non trouvé");
+            tempElement.style.color = "#fab45e"; 
         }
 
         timer = setInterval(() => {
@@ -61,7 +62,7 @@ function startTimer() {
 }
 
 function handleTimeOut() {
-    console.log("Temps écoulé !");
+    
     const buttons = [
         document.getElementById('Bouton1'),
         document.getElementById('Bouton2')
@@ -74,13 +75,12 @@ function handleTimeOut() {
     });
 
     const currentQuestion = quizData[currentQuestionIndex];
-    const correctAnswer = currentQuestion.correctAnswer ? currentQuestion.correctAnswer.trim() : null;
+    const correctAnswer = currentQuestion.correctAnswer ? currentQuestion.correctAnswer.trim() : null; //Supprime les espaces
     buttons.forEach(btn => {
         if (btn) {
             const btnText = btn.textContent.trim();
             if (correctAnswer && btnText === correctAnswer) {
-                console.log("Mise en vert de la bonne réponse : ", btnText);
-                btn.classList.add('correct'); // Correction : utiliser 'correct' au lieu de 'incorrect'
+                btn.classList.add('correct'); 
             }
         }
     });
@@ -91,24 +91,29 @@ function handleTimeOut() {
     }, 2000);
 }
 
+
+//----------------------------------Affichage des questions----------------------------------------------------------//
+
+
 function displayQuestion() {
     if (currentQuestionIndex >= quizData.length) {
+
         document.getElementById('IntituleQuestion').textContent = "Quiz terminé !";
         document.getElementById('ElementReponse').style.display = 'none';
         document.getElementById('TexteDescriptif').style.display = 'block';
         document.getElementById('TexteDescriptif').innerHTML = `<p>Nombre de bonne réponse :  ${score}/${quizData.length}</p><br><p>Votre score sera mis à jour automatiquement ainsi votre nombre de question subies.</p>`;
         document.getElementById('Retour').style.display = 'block';
-        document.getElementById('PlacementChrono').style.display = 'none'; // Cacher le chronomètre à la fin
-        document.getElementById('returnButton').style.display = 'block'; // Cacher le chronomètre à la fin
-        document.getElementById('returnButton2').style.display = 'none'; // Cacher le chronomètre à la fin
+        document.getElementById('PlacementChrono').style.display = 'none'; 
+        document.getElementById('returnButton').style.display = 'block'; 
+        document.getElementById('returnButton2').style.display = 'none'; 
 
-        window.quizScore = score;
+        window.quizScore = score; //Variable globale qui stocke le score du joueur
         window.quizTotal = quizData.length;
-        console.log("Fin du quiz - Score:", window.quizScore, "Total:", window.quizTotal);
+        
 
         document.getElementById('scoreInput').value = window.quizScore;
         document.getElementById('totalInput').value = window.quizTotal;
-        console.log("Champs cachés remplis - Score:", window.quizScore, "Total:", window.quizTotal);
+      
 
         return;
     }
@@ -118,7 +123,7 @@ function displayQuestion() {
     const tempElement = document.getElementById("Temp");
     if (tempElement) {
         tempElement.innerText = timeLeft;
-        tempElement.style.color = "#fab45e"; // Réinitialiser la couleur
+        tempElement.style.color = "#fab45e"; 
     }
     isRunning = false;
 
@@ -147,26 +152,27 @@ function displayQuestion() {
     startTimer();
 }
 
+//----------------------------------Selection et verifiaction du choix----------------------------------------------------------//
+
+
 function selectChoice(bouton) {
-    console.log("selectChoice appelé pour : ", bouton.textContent);
+
     const selectedAnswer = bouton.textContent.trim();
     const currentQuestion = quizData[currentQuestionIndex];
     const correctAnswer = currentQuestion.correctAnswer ? currentQuestion.correctAnswer.trim() : null;
 
-    console.log("Réponse sélectionnée : ", selectedAnswer);
-    console.log("Réponse correcte : ", correctAnswer);
 
-    clearInterval(timer);
+    clearInterval(timer); //Rénitialise le timer
 
     document.getElementById('Bouton1').disabled = true;
     document.getElementById('Bouton2').disabled = true;
 
     if (correctAnswer && selectedAnswer === correctAnswer) {
-        console.log("Réponse correcte !");
+  
         bouton.classList.add('correct');
         score++;
     } else {
-        console.log("Réponse incorrecte !");
+      
         bouton.classList.add('incorrect');
         const buttons = [
             document.getElementById('Bouton1'),
@@ -174,9 +180,9 @@ function selectChoice(bouton) {
         ];
         buttons.forEach(btn => {
             const btnText = btn.textContent.trim();
-            console.log("Comparaison avec : ", btnText);
+         
             if (correctAnswer && btnText === correctAnswer) {
-                console.log("Mise en vert de la bonne réponse : ", btnText);
+       
                 btn.classList.add('correct');
             }
         });
@@ -188,14 +194,16 @@ function selectChoice(bouton) {
     }, 2000);
 }
 
+//----------------------------------Soumissions des resultats ----------------------------------------------------------//
+
+
 function submitForm() {
-    console.log("Soumission manuelle du formulaire");
+
     const scoreInput = document.getElementById('scoreInput').value;
     const totalInput = document.getElementById('totalInput').value;
-    console.log("Valeurs avant soumission - Score:", scoreInput, "Total:", totalInput);
+  
 
     if (!scoreInput || !totalInput) {
-        console.error("Erreur : Les champs score ou total sont vides");
         return;
     }
 
