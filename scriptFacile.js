@@ -6,58 +6,54 @@ let timeLeft = 20; // Temps initial en secondes
 let isRunning = false; // Variable pour suivre l'état du chronomètre
 
 function loadQuizData() {
-    console.log("loadQuizData appelé");
+    
     quizData = quizDataInitial;
 
-    if (quizData.error) {
-        alert(quizData.error);
-        return;
-    }
 
     score = 0;
-    document.getElementById('questions').max = quizData.length;
+    document.getElementById('questions').max = quizData.length; //Taille du quiz pour le nombre de question
     document.getElementById('quizIntro').style.display = 'none';
     document.getElementById('Retour').style.display = 'none';
-    // Afficher le conteneur du chronomètre dès le début
     document.getElementById('PlacementChrono').style.display = 'block';
 
-    displayQuestion();
+    displayQuestion(); //Appel de la fonction pour l'affichage des questionss
 }
+
+
+//----------------------------------Fonction du Chrono----------------------------------------------------------//
 
 function startTimer() {
     if (!isRunning) {
         document.getElementById("Temp").style.display="block";
-        isRunning = true;
+        isRunning = true; //Démarre le chrono
         clearInterval(timer);
         timeLeft = 20; // Réinitialisation du chrono
         const tempElement = document.getElementById("Temp");
         if (tempElement) {
-            tempElement.innerText = timeLeft; // Ajouter "s" pour indiquer les secondes
-        } else {
-            console.error("Erreur : Élément #Temp non trouvé");
+            tempElement.innerText = timeLeft; 
         }
 
         timer = setInterval(() => {
-            timeLeft--;
+            timeLeft--; //Décrémentation du chrono
             if (tempElement) {
                 tempElement.innerText = timeLeft;
             }
             if(timeLeft<=10){
-                document.getElementById('Temp').style.color="#F44336";
+                document.getElementById('Temp').style.color="#F44336"; //Met en rouge quand < 10 sec
             }
 
             if (timeLeft <= 0) {
                 clearInterval(timer);
                 document.getElementById('Temp').style.color="#fab45e";
                 isRunning = false;
-                handleTimeOut();
+                TimeOut();
             }
         }, 1000);
     }
 }
 
-function handleTimeOut() {
-    console.log("Temps écoulé !");
+function TimeOut() {
+
     const buttons = [
         document.getElementById('Bouton1'),
         document.getElementById('Bouton2'),
@@ -65,22 +61,21 @@ function handleTimeOut() {
         document.getElementById('Bouton4')
     ];
 
-    // Désactiver les boutons
+    // Désactive les boutons
     buttons.forEach(btn => {
         if (btn) {
             btn.disabled = true;
         }
     });
 
-    // Afficher la bonne réponse en vert
+    // Affiche la bonne réponse en vert
     const currentQuestion = quizData[currentQuestionIndex];
-    const correctAnswer = currentQuestion.correctAnswer ? currentQuestion.correctAnswer.trim() : null;
+    const correctAnswer = currentQuestion.correctAnswer ? currentQuestion.correctAnswer.trim() : null; //Supprime les espaces
     buttons.forEach(btn => {
         if (btn) {
             const btnText = btn.textContent.trim();
             if (correctAnswer && btnText === correctAnswer) {
-                console.log("Mise en vert de la bonne réponse : ", btnText);
-                btn.classList.add('incorrect');
+                btn.classList.add('incorrect'); //Couleur defini dans le styleFacile.css
             }
         }
     });
@@ -92,37 +87,44 @@ function handleTimeOut() {
     }, 2000);
 }
 
+//----------------------------------Affichage des questions----------------------------------------------------------//
+
+
 function displayQuestion() {
-    if (currentQuestionIndex >= quizData.length) {
+    if (currentQuestionIndex >= quizData.length) { //Si le nombre de question max est atteind , on arrete + score final
+
         document.getElementById('IntituleQuestion').textContent = "Quiz terminé !";
         document.getElementById('ElementReponse').style.display = 'none';
         document.getElementById('TexteDescriptif').style.display = 'block';
-        document.getElementById('TexteDescriptif').innerHTML = `<p>Nombre de bonne réponse :  ${score}/${quizData.length}</p><br><p>Votre score sera mis à jour automatiquement ainsi votre nombre de question subies.</p>`;
+        document.getElementById('TexteDescriptif').innerHTML = `<p>Nombre de bonne réponse :  ${score}/${quizData.length}</p><br><p>Votre score sera mis à jour automatiquement ainsi que votre nombre de question subies.</p>`;
         
         document.getElementById('Retour').style.display = 'block';
-        document.getElementById('PlacementChrono').style.display = 'none'; // Cacher le chronomètre à la fin
-        document.getElementById('returnButton').style.display = 'block'; // Cacher le chronomètre à la fin
-        document.getElementById('returnButton2').style.display = 'none'; // Cacher le chronomètre à la fin
+        document.getElementById('PlacementChrono').style.display = 'none'; 
+        document.getElementById('returnButton').style.display = 'block'; 
+        document.getElementById('returnButton2').style.display = 'none'; 
 
 
-        window.quizScore = score;
+        window.quizScore = score; //Variable globale pour le score du joueur
         window.quizTotal = quizData.length;
-        console.log("Fin du quiz - Score:", window.quizScore, "Total:", window.quizTotal);
+       
 
-        document.getElementById('scoreInput').value = window.quizScore;
+        document.getElementById('scoreInput').value = window.quizScore; //Modification de scoreInput pour y placer quizScore
         document.getElementById('totalInput').value = window.quizTotal;
-        console.log("Champs cachés remplis - Score:", window.quizScore, "Total:", window.quizTotal);
+     
 
         return;
     }
 
-    clearInterval(timer); // Arrêter le chrono précédent
+    clearInterval(timer); // Arrête le chrono précédent
     timeLeft = 20; // Réinitialisation du chrono
+
     const tempElement = document.getElementById("Temp");
     if (tempElement) {
         tempElement.innerText = timeLeft;
     }
-    isRunning = false; // Permet de relancer correctement le chrono
+    isRunning = false; 
+
+    //Une boucle aurait plus etre envisageable 
 
     const currentQuestion = quizData[currentQuestionIndex];
     const questionContainer = document.getElementById('IntituleQuestion');
@@ -135,6 +137,7 @@ function displayQuestion() {
     bouton2.classList.remove('correct', 'incorrect');
     bouton3.classList.remove('correct', 'incorrect');
     bouton4.classList.remove('correct', 'incorrect');
+    
     bouton1.disabled = false;
     bouton2.disabled = false;
     bouton3.disabled = false;
@@ -142,36 +145,33 @@ function displayQuestion() {
 
     document.getElementById('TexteDescriptif').style.display = 'none';
     document.getElementById('ElementReponse').style.display = 'block';
-    document.getElementById('PlacementChrono').style.display = 'flex'; // Afficher le chronomètre
+    document.getElementById('PlacementChrono').style.display = 'flex';
+
     questionContainer.textContent = currentQuestion.question;
 
-    bouton1.textContent = currentQuestion.choices[0]?.text || 'Choix 1 indisponible';
+    bouton1.textContent = currentQuestion.choices[0]?.text || ''; //Choix 1
     bouton1.value = currentQuestion.choices[0]?.id || '';
-    bouton2.textContent = currentQuestion.choices[1]?.text || 'Choix 2 indisponible';
+    bouton2.textContent = currentQuestion.choices[1]?.text ;
     bouton2.value = currentQuestion.choices[1]?.id || '';
-    bouton3.textContent = currentQuestion.choices[2]?.text || 'Choix 3 indisponible';
+    bouton3.textContent = currentQuestion.choices[2]?.text;
     bouton3.value = currentQuestion.choices[2]?.id || '';
-    bouton4.textContent = currentQuestion.choices[3]?.text || 'Choix 4 indisponible';
+    bouton4.textContent = currentQuestion.choices[3]?.text;
     bouton4.value = currentQuestion.choices[3]?.id || '';
 
-    document.getElementById('questions').value = currentQuestionIndex + 1;
+    document.getElementById('questions').value = currentQuestionIndex + 1; //Incrémantation pour la question précédente
 
-    // Démarrer le chronomètre pour la nouvelle question
-    startTimer();
+    startTimer(); //Nouveau chrono pour la question précédente
 }
 
-// Le reste du code (selectChoice, submitForm) reste inchangé
+//----------------------------------Selection et verifiaction du choix----------------------------------------------------------//
 
 function selectChoice(bouton) {
-    console.log("selectChoice appelé pour : ", bouton.textContent);
-    const selectedAnswer = bouton.textContent.trim();
+    
+    const selectedAnswer = bouton.textContent.trim(); //Supprime les espaces
     const currentQuestion = quizData[currentQuestionIndex];
     const correctAnswer = currentQuestion.correctAnswer ? currentQuestion.correctAnswer.trim() : null;
 
-    console.log("Réponse sélectionnée : ", selectedAnswer);
-    console.log("Réponse correcte : ", correctAnswer);
-
-    // Arrêter le chronomètre
+  
     clearInterval(timer);
 
     // Désactiver les boutons pour éviter plusieurs clics
@@ -182,45 +182,46 @@ function selectChoice(bouton) {
 
     // Vérifier la réponse sélectionnée
     if (correctAnswer && selectedAnswer === correctAnswer) {
-        console.log("Réponse correcte !");
-        bouton.classList.add('correct');
+       
+        bouton.classList.add('correct'); //Bonne réponse en vert
         score++;
+
     } else {
-        console.log("Réponse incorrecte !");
-        bouton.classList.add('incorrect');
-        // Mettre en vert la bonne réponse
+        
+        bouton.classList.add('incorrect'); //Mauvaise réponse en rouge
+
         const buttons = [
             document.getElementById('Bouton1'),
             document.getElementById('Bouton2'),
             document.getElementById('Bouton3'),
             document.getElementById('Bouton4')
         ];
+
         buttons.forEach(btn => {
             const btnText = btn.textContent.trim();
-            console.log("Comparaison avec : ", btnText);
-            if (correctAnswer && btnText === correctAnswer) {
-                console.log("Mise en vert de la bonne réponse : ", btnText);
-                btn.classList.add('correct');
+            if (correctAnswer && btnText === correctAnswer) {//Comparaison de la bonne réponse avec celui de l'User
+                btn.classList.add('correct'); 
             }
         });
     }
 
-    // Passer à la question suivante après un délai de 2 secondes
+    // Passe à la question suivante après un délai de 2 secondes
     setTimeout(() => {
-        currentQuestionIndex++;
+        currentQuestionIndex++; 
         displayQuestion();
     }, 2000);
 }
 
-// Fonction pour soumettre le formulaire manuellement
+
+//----------------------------------Soumissions des resultats ----------------------------------------------------------//
+
 function submitForm() {
-    console.log("Soumission manuelle du formulaire");
-    const scoreInput = document.getElementById('scoreInput').value;
-    const totalInput = document.getElementById('totalInput').value;
-    console.log("Valeurs avant soumission - Score:", scoreInput, "Total:", totalInput);
+ 
+    const scoreInput = document.getElementById('scoreInput').value; //Récupère le score
+    const totalInput = document.getElementById('totalInput').value; //Récupère le nombre de question
+
 
     if (!scoreInput || !totalInput) {
-        console.error("Erreur : Les champs score ou total sont vides");
         return;
     }
 

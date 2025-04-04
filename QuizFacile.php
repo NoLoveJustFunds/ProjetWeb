@@ -30,7 +30,8 @@
                 <p>À vous de faire les bons choix. Bonne chance !</p><br>
             </div>
 
-            <div id="ElementReponse">
+            <div id="ElementReponse"> <!-- Appel de la fonction selectChoice pour avoir le fond coloré (Si bonne / mauvaise réposne)-->
+                <!-- J'ai utilisé this car le bouton "this" fait référence au bouton lui meme ( appel de la fonction sur le bouton cliqué)-->
                 <div id="Reponse1"><button type="button" id="Bouton1" onclick="selectChoice(this)"></button></div>
                 <div id="Reponse2"><button type="button" id="Bouton2" onclick="selectChoice(this)"></button></div>
                 <div id="Reponse3"><button type="button" id="Bouton3" onclick="selectChoice(this)"></button></div>
@@ -48,7 +49,7 @@
             <button id="startButton" onclick="loadQuizData()" onclick="startQuiz()">Lancer Quiz</button>
         </div>
         <div id="Retour">
-            <!-- Le bouton Retour soumet le formulaire manuellement -->
+            <!-- Le bouton Retour soumet le formulaire et l'autre permet de faire un retour sur la page précédente -->
            <a href="QuizPage.php"><button id="returnButton2">Retour</a></button>
             <button id="returnButton" onclick="submitForm()" >Retour</button>
         </div>
@@ -57,12 +58,10 @@
     <?php
     session_start();
 
-   
-
     $mailUser = $_SESSION['Mail_User'];
-    error_log("Mail_User dans la session : " . $mailUser);
 
-    // Récupérer les données actuelles de l'utilisateur (Score_User et Total_Play)
+
+    // Récupère les données actuelles de l'utilisateur (Score_User et Total_Play)
     try {
         $mysqlClient = new PDO('mysql:host=localhost;dbname=test;charset=utf8', 'root', '', [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
@@ -70,12 +69,12 @@
 
         $fetchQuery = "SELECT Score_User, Total_Play FROM Score WHERE Mail_User = :mail";
         $fetchStmt = $mysqlClient->prepare($fetchQuery);
-        $fetchStmt->bindParam(':mail', $mailUser, PDO::PARAM_STR);
+        $fetchStmt->bindParam(':mail', $mailUser, PDO::PARAM_STR); //Associe le mail de l'user à la variable mail
         $fetchStmt->execute();
-        $userData = $fetchStmt->fetch(PDO::FETCH_ASSOC);
+        $userData = $fetchStmt->fetch(PDO::FETCH_ASSOC); //Récupère une ligne a la fois du resulat de la requete
 
         if ($userData) {
-            $_SESSION['Score_User'] = $userData['Score_User'];
+            $_SESSION['Score_User'] = $userData['Score_User']; //Stocke le score de l'utilsateur la variable de la session
             $_SESSION['Total_Play'] = $userData['Total_Play'];
            
         } else {
@@ -89,12 +88,12 @@
         $_SESSION['Total_Play'] = 0;
     }
 
-    // Gérer la soumission du score (déclenchée manuellement par le bouton Retour)
+    // Gère la soumission du score (déclenchée manuellement par le bouton Retour)
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
         if (isset($_POST['score']) && isset($_POST['total'])) {
-            $score = (int)$_POST['score'];
+            $score = (int)$_POST['score']; //Convertit le score si str en entier pour éviter une comparaison entier / str
             $total = (int)$_POST['total'];
         
 
@@ -108,12 +107,13 @@
                 $checkStmt = $mysqlClient->prepare($checkQuery);
                 $checkStmt->bindParam(':mail', $mailUser, PDO::PARAM_STR);
                 $checkStmt->execute();
-                $userExists = $checkStmt->fetchColumn();
+                $userExists = $checkStmt->fetchColumn(); //Récupere la premiere ligne du resultat de la requete
 
 
                 if ($userExists) {
-                    // Mettre à jour l'entrée existante en additionnant les valeurs
+                    
                     $updateQuery = "UPDATE Score SET Score_User = Score_User + :score, Total_Play = Total_Play + :total WHERE Mail_User = :mail";
+                    //Pour la requete , j'ai mis pas mal de temps pour avoir le resultat , la solution était d'ajouter l'ancien et le nouveau score et pas de le remplacer.
                     $updateStmt = $mysqlClient->prepare($updateQuery);
                     $updateStmt->bindParam(':score', $score, PDO::PARAM_INT);
                     $updateStmt->bindParam(':total', $total, PDO::PARAM_INT);
@@ -121,7 +121,7 @@
                     $updateStmt->execute();
                     
                 } else {
-                    // Insérer une nouvelle entrée
+                    // Insère une nouvelle entrée
                     $insertQuery = "INSERT INTO Score (Score_User, Total_Play, Mail_User) VALUES (:score, :total, :mail)";
                     $insertStmt = $mysqlClient->prepare($insertQuery);
                     $insertStmt->bindParam(':score', $score, PDO::PARAM_INT);
@@ -131,11 +131,11 @@
                     
                 }
 
-                // Mettre à jour les valeurs dans la session
-                // Récupérer les nouvelles valeurs cumulées pour la session
+               
+                // Récupère les nouvelles valeurs  pour la session
                 $fetchQuery = "SELECT Score_User, Total_Play FROM Score WHERE Mail_User = :mail";
                 $fetchStmt = $mysqlClient->prepare($fetchQuery);
-                $fetchStmt->bindParam(':mail', $mailUser, PDO::PARAM_STR);
+                $fetchStmt->bindParam(':mail', $mailUser, PDO::PARAM_STR); //Associe le mail de l'user a la variable
                 $fetchStmt->execute();
                 $userData = $fetchStmt->fetch(PDO::FETCH_ASSOC);
 
@@ -144,9 +144,7 @@
                     $_SESSION['Total_Play'] = $userData['Total_Play'];
                     
                 }
-
-                // Rediriger vers QuizPage.php après l'enregistrement
-                header("Location: QuizPage.php");
+                header("Location: QuizPage.php"); //header permet de rediriger vers la page ciblée 
                 exit;
             } catch (Exception $e) {
         
@@ -173,9 +171,9 @@
         $stmt->execute();
 
         $quizData = [];
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) { //tableau associatif avec les noms de colonnes comme clé 
             $questionId = $row['Id_Question'];
-            if (!isset($quizData[$questionId])) {
+            if (!isset($quizData[$questionId])) { //Verifie si la question n'est pas dans le tableau
                 $quizData[$questionId] = [
                     'question' => $row['Question_Text'],
                     'choices' => [],
@@ -191,14 +189,19 @@
         $quizData = array_values($quizData);
         shuffle($quizData); //Mélange les elemnents de maniere aléatoire
         $selectedQuestions = array_slice($quizData, 0, min(10, count($quizData)));
+        //Extrait toutes les questions si <10 sinon prend max 10 questions parmi le total
+        //Slice permet de couper le tableau en morceau , et de garder max 10 questions
+
+
     } catch (Exception $e) {
-        $selectedQuestions = ['error' => 'Erreur : ' . $e->getMessage()];
+        $selectedQuestions = ['error' => 'Erreur : ' . $e->getMessage()]; //Retour du message d'erreur avec getMessage
+        //En Java , j'aurais utilisé getStackTrace()
     }
     ?>
 
     <script>
-        const quizDataInitial = <?php echo json_encode($selectedQuestions); ?>; //Cette fonction PHP convertit la variable PHP  en une chaîne JSON.
-        console.log("Données injectées : ", quizDataInitial);
+        const quizDataInitial = <?php echo json_encode($selectedQuestions); ?>; 
+        //Cette fonction PHP convertit le tableau  PHP  en un format compréhensible par JS (sous forme tableau clé : valeur).
     </script>
 
     <script src="scriptFacile.js"></script>
