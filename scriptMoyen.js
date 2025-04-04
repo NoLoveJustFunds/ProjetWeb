@@ -113,6 +113,8 @@ function displayQuestion() {
 
         document.getElementById('scoreInput').value = window.quizScore;
         document.getElementById('totalInput').value = window.quizTotal;
+
+        document.getElementById('questions').value = quizData.length;
       
 
         return;
@@ -147,7 +149,7 @@ function displayQuestion() {
     bouton2.textContent = currentQuestion.choices[1]?.text || 'Choix 2 indisponible';
     bouton2.value = currentQuestion.choices[1]?.id || '';
 
-    document.getElementById('questions').value = currentQuestionIndex + 1;
+    document.getElementById('questions').value = currentQuestionIndex;
 
     startTimer();
 }

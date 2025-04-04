@@ -12,7 +12,7 @@
     </header>
 
     <div id="PlacementBarProgress">
-        <progress id="questions" value ="0" max="11" ></progress>
+        <progress id="questions" value ="0" max="10" ></progress>
     </div>
     <div id="PlacementChrono">
         <span id="Temp">20</span>
@@ -68,7 +68,7 @@
 
 
     $mailUser = $_SESSION['Mail_User'];
-    error_log("Mail_User dans la session : " . $mailUser);
+    
 
     // Récupère les données actuelles de l'utilisateur (Score_User et Total_Play)
     try {
