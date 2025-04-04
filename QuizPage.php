@@ -29,7 +29,6 @@
         
     </header>
 
-    
 
     <div class = "Intitule">
         <h2>Mode de jeu</h2>

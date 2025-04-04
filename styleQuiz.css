@@ -6,7 +6,80 @@ body{
     width: auto;
 }
 
-#Container { /*Contenu centré ( principal) */
+
+/*------------------------------------Premier container-------------------------------------*/
+
+nav {
+    display: flex;
+    justify-content: flex-end; 
+    align-items: flex-start;
+    margin-top: 30px;
+    margin-right: 10px;
+    width: 100%;
+}
+
+.DropElement {
+    position: relative;
+    display: inline-block;
+    width: 200px; 
+}
+
+.ElementDeroulant {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 10;
+    min-width: 150px;
+    padding: 10px;
+    box-shadow: 0 0 15px 5px #283c63;
+    width: 100%;
+    text-align: center;
+    border-radius: 10px;
+    border: 1.5px solid #8e93c0;
+    margin-top: 50px;
+    background: #1e1e1e; 
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.ElementDeroulant.visible {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+.ElementDeroulant ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ElementDeroulant ul li {
+    padding: 10px;
+}
+
+
+.ElementDeroulant ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    margin: auto;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100px;
+    border: 1.1px solid #8e93c0;
+    background: linear-gradient(90deg, #8E2DE2, #4A00E0);
+}
+
+
+.ElementDeroulant ul li a:hover {
+    box-shadow: 0 0 15px 5px #283c63;
+}
+
+
+/*------------------------------------Second container-------------------------------------*/
+#Container { 
     display: block;
     width: 250px;
     height: 300px;
@@ -22,13 +95,12 @@ body{
 #Container:hover{
     box-shadow: 0 0 15px 5px #283c63;
 }
-.Choix1 , .Choix2 , .Choix3{ /*Espacement entre les boutons */
+.Choix1 , .Choix2 , .Choix3{ 
    margin:40px;
  
 }
 
-
-button{ /*Parametre des boutons du milieu ( facile /difficile*/
+button{ 
     width: 160px;
     height: 30px;
     font-size: 20px;
@@ -39,11 +111,9 @@ button{ /*Parametre des boutons du milieu ( facile /difficile*/
     margin-top: 10px;
 }
 
-button:hover{ /*Style pour le survolement des boutons */
+button:hover{ 
     box-shadow: 0 0 15px 5px #283c63;
 }
-
-
 header{
     display: flex;
     justify-content: space-between;
@@ -54,8 +124,7 @@ header{
     
 }
 
-
-.Intitule{ /*Ecriture -> niveau de difficulte */
+.Intitule{ 
     display: block;
     margin:auto;
     margin-top: 50px;
@@ -65,23 +134,7 @@ header{
     font-size: 18px;
     
 }
-
-nav {
-    display: flex;
-    justify-content: flex-end; /* Aligne le menu à droite */
-    align-items: flex-start;
-    margin-top: 30px;
-    margin-right: 10px;
-    width: 100%; /* Prend toute la largeur de la page */
-}
-
-.DropElement {
-    position: relative;
-    display: inline-block;
-    width: 200px; /* Largeur du menu déroulant et bouton */
-}
-
-.Bouton { /* Bouton "Menu" en haut à droite */
+.Bouton { 
     position: absolute;
     bottom: 12px;
     left: 30px;
@@ -102,70 +155,4 @@ nav {
     box-shadow: none;
 }
 
-/* Menu déroulant */
-.ElementDeroulant {
-    display: none;
-    position: absolute;
-    top: 100%;
-    right: 10;
-    min-width: 150px;
-    padding: 10px;
-    box-shadow: 0 0 15px 5px #283c63;
-    width: 100%;
-    text-align: center;
-    border-radius: 10px;
-    border: 1.5px solid #8e93c0;
-    margin-top: 50px;
-    background: #1e1e1e; 
-   
-    /* Animation */
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
 
-/* Affichage du menu quand il est actif */
-.ElementDeroulant.visible {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Liste des éléments du menu */
-.ElementDeroulant ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.ElementDeroulant ul li {
-    padding: 10px;
-}
-
-/* Liens dans le menu */
-.ElementDeroulant ul li a {
-    color: white;
-    text-decoration: none;
-    display: block;
-    margin: auto;
-    padding: 10px;
-    border-radius: 5px;
-    width: 100px;
-    border: 1.1px solid #8e93c0;
-    background: linear-gradient(90deg, #8E2DE2, #4A00E0);
-}
-
-/* Effet de survol */
-.ElementDeroulant ul li a:hover {
-    box-shadow: 0 0 15px 5px #283c63;
-}
-
-
-/* Affichage du menu déroulant au survol 
-.DropElement:hover .ElementDeroulant {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-    box-shadow: 0 0 15px 5px #283c63;
-}
-    */
