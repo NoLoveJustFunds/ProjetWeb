@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,8 @@
 </head>
 
 <?php
-session_start();
+
+session_start(); //Démarage de la session pour récuperer les info du joueur connecté
 
 $email = $_SESSION['Mail_User'] ;
 $password = $_SESSION['Mdp_User'] ;

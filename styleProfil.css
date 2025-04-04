@@ -4,20 +4,22 @@ body{
     background-image:url("FondAccueil.jpg"); 
     min-height: 100vh;
 }
-/* Titre principal */
+
 .Titre1 {
     display: block;
     margin: 50px auto;
     width: 210px;
     text-align: center;
-    font-size: 24px; /* Plus lisible */
-    padding: 10px; /* Ajout d'un padding pour un meilleur rendu */
+    font-size: 24px; 
+    padding: 10px; 
     font-size: 40px;
     color: rgb(212, 212, 212);
 }
 
 
-/* Conteneur principal */
+
+/*------------------------------------------Container principal-------------------------------------*/
+
 #Container {
     display: flex;
     flex-direction: column;
@@ -31,7 +33,7 @@ body{
     border-radius: 10px;
     transition: box-shadow 0.3s ease;
     box-shadow: 0 0 15px 5px #283c63;
-    position: relative; /* Ajouté pour que #Intitule se positionne correctement */
+    position: relative; 
     z-index: 2;
 }
 
@@ -40,18 +42,17 @@ body{
     margin-top: 20px;
 }
 
-
 #Intitule{
     position: absolute;
-    top: 10px; /* Distance du haut */
-    left: 10px; /* Distance de la droite */
+    top: 10px; 
+    left: 10px; 
     border: 1px solid black;
     font-size: 20px;
     color: white;
     font-weight: bold;
-    background-color: #283c63; /* Ajoute un fond pour voir le texte */
-    padding: 5px 5px; /* Ajoute de l'espace pour le texte */
-    border-radius: 5px; /* Coins arrondis */
+    background-color: #283c63; 
+    padding: 5px 5px; 
+    border-radius: 5px; 
     z-index: 3; 
     
 }
@@ -61,13 +62,53 @@ body{
     font-size: 20px;
     position: absolute;
     left: 13px;
-
 }
-
 
 input:hover , .btn:hover{
-    box-shadow: 0 0 15px 5px #283c63; /* Brillance cyan au survol */
+    box-shadow: 0 0 15px 5px #283c63;
 }
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+fieldset {
+    border:none;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+input {
+    display: flex;
+    width: 75%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #8e93c0;
+    border-radius: 5px;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: 1px solid #283c63;
+}
+
+.Informations2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px; 
+    margin-top: 30px;
+    color: rgb(212, 212, 212);
+}
+
+.Souligner{
+    text-decoration: none;
+    color: rgb(212, 212, 212);
+}
+
+/*------------------------------------------Bouton retour-------------------------------------*/
 
 #Retour{
     display: block;
@@ -93,51 +134,3 @@ input:hover , .btn:hover{
     box-shadow: 0 0 15px 5px #283c63;
     
 }
-
-a {
-    text-decoration: none;
-    color: white;
-}
-
-/* Style des fieldsets */
-fieldset {
-    border:none;
-    border-radius: 8px;
-    padding: 10px;
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-/* Style des inputs */
-input {
-    display: flex;
-    width: 75%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #8e93c0;
-    border-radius: 5px;
-}
-/*Style de l'input ( contour ) */
-input:focus, textarea:focus, select:focus {
-    outline: 1px solid #283c63;
-}
-
-  
-/* Style du lien "Pas de compte ?" */
-.Informations2{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px; /* Espace entre les éléments */
-    margin-top: 30px;
-    color: rgb(212, 212, 212);
-}
-
-/* Lien creer un compte non souligner*/
-.Souligner{
-    text-decoration: none;
-    color: rgb(212, 212, 212);
-}
-
-
-
