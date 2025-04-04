@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +8,9 @@
 </head>
 
 <?php
-session_start();
-$email = $_SESSION['Mail_User'];
+
+session_start(); //Démarage de la session
+$email = $_SESSION['Mail_User']; 
 
 try {
     // Connexion à la base de données
@@ -22,24 +23,25 @@ try {
 
 
     // Préparation de la requête SQL pour récupérer les informations du joueur
+
     $DataUser = 'SELECT Nom_User , Prenom_User , Score_User, Total_Play FROM Score 
                  JOIN Utilisateurs ON Score.Mail_User = Utilisateurs.Mail_User
                  WHERE Utilisateurs.Mail_User = :email';
 
     $Prep = $mysqlClient->prepare($DataUser);
-    $Prep->bindValue(":email", $email, PDO::PARAM_STR);
+    $Prep->bindValue(":email", $email, PDO::PARAM_STR);//Associe l'email de l'user à la variable email
     $Prep->execute();
-    $UtilisateursTab = $Prep->fetch(PDO::FETCH_ASSOC);
+    $UtilisateursTab = $Prep->fetch(PDO::FETCH_ASSOC); //Récupère la premiere ligne du resultat de la requete SQL
 
     if (!$UtilisateursTab) {
         // Si aucune donnée n'est trouvée
-        echo "❌ Aucune donnée trouvée pour cet utilisateur.";
+        echo "Aucune donnée trouvée pour cet utilisateur.";
     }
+
 } catch (Exception $e) {
-    echo "❌ Erreur : " . $e->getMessage();
+    echo "Erreur : " . $e->getMessage(); //En java , j'utilise du getStackTrace() 
 }
 ?>
-
 
 <body>
 
