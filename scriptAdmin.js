@@ -1,21 +1,20 @@
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Vérifie s'il y a un message de succès dans l'URL (pourrait être ajouté après redirection)
+    
+    // Vérifie s'il y a un message de succès dans l'URL ( pour enchainer la création de question)
     const urlParams = new URLSearchParams(window.location.search);
+
     if (urlParams.has('success')) {
-        // Réinitialiser tous les champs de formulaire
+
+        // Réinitialise tous les champs de formulaire
         document.querySelectorAll('input[type="text"]').forEach(input => {
             input.value = '';
         });
         
-        // Réinitialiser les radios Vrai/Faux
+        // Réinitialise les boutons radios Vrai/Faux
         document.querySelectorAll('input[type="radio"]').forEach(radio => {
             radio.checked = false;
         });
         
-        // Réinitialiser les sélecteurs (optionnel, généralement on garde la difficulté)
-        // document.querySelectorAll('select').forEach(select => {
-        //     select.selectedIndex = 0;
-        // });
     }
 });

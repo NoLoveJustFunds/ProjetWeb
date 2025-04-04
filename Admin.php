@@ -162,7 +162,7 @@
 </body>
 
 <?php
-session_start(); // Commencer une session pour stocker les questions
+session_start(); // Commence une session pour stocker les questions
 
 try {
     // Connexion à la base de données
@@ -171,14 +171,12 @@ try {
     ]);
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Vérifier si c'est une question suivante ou terminer
         $isQuestionSuivante = isset($_POST['question_suivante']);
         $isTerminer = isset($_POST['terminer']);
-        $typeQuiz = $_POST['typeQuiz'] ?? ''; // Récupérer le type de quiz (QCM, Vrai/Faux, ou Réponse Libre)
+        $typeQuiz = $_POST['typeQuiz'] ?? ''; // Récupére le type de quiz (QCM, Vrai/Faux, ou Réponse Libre)
 
 
         if ($typeQuiz === 'QCM') {
-            // Logique pour le QCM
             $niveau = $_POST['ElementsQCM'] ?? 'Facile';
             $questionText = $_POST['questionQCM'] ?? '';
             $choix1 = $_POST['Choix1'] ?? '';
@@ -188,10 +186,11 @@ try {
             $reponseIndex = intval($_POST['ReponseQCM'] ?? '1'); // L'index du choix sélectionné (1-4)
 
 
-            // Vérifier que tous les champs sont remplis
+            // Vérifie que tous les champs sont remplis
             if (!empty($questionText) && !empty($choix1) && !empty($choix2) && !empty($choix3) && !empty($choix4) && ($isQuestionSuivante || $isTerminer)) {
-                // Créer ou récupérer le quiz
+                // Crée ou récupère le quiz
                 if (!isset($_SESSION['quiz_id'])) {
+                    //Logique pour LE QCM
                     $query = "INSERT INTO Quiz (Type_Quiz, Niveau) VALUES (:typeQuiz, :niveau)";
                     $stmt = $mysqlClient->prepare($query);
                     $stmt->bindValue(':typeQuiz', $typeQuiz, PDO::PARAM_STR);
@@ -199,10 +198,10 @@ try {
                     $stmt->execute();
                     $_SESSION['quiz_id'] = $mysqlClient->lastInsertId();
                     $_SESSION['quiz_niveau'] = $niveau;
-                    error_log("Nouveau quiz QCM créé - Id_Quiz: " . $_SESSION['quiz_id']);
+                    
                 }
 
-                // Insérer la question
+                // Insère la question
                 $query = "INSERT INTO Questions (Question_Text, Id_Quiz) VALUES (:questionText, :quizId)";
                 $stmt = $mysqlClient->prepare($query);
                 $stmt->bindValue(':questionText', $questionText, PDO::PARAM_STR);
@@ -214,7 +213,7 @@ try {
                 // Tableau des choix
                 $choix = [$choix1, $choix2, $choix3, $choix4];
 
-                // Insérer les choix
+                // Insère les choix
                 foreach ($choix as $index => $choixText) {
                     $query = "INSERT INTO Choix (Id_Question, Choix_Text) VALUES (:questionId, :choixText)";
                     $stmt = $mysqlClient->prepare($query);
@@ -223,11 +222,11 @@ try {
                     $stmt->execute();
                 }
 
-                // Récupérer la réponse correcte
+                // Récupère la réponse correcte
                 $reponseCorrecte = $choix[$reponseIndex - 1]; // Texte de la réponse correcte
                 $typeReponse = $typeQuiz; // 'QCM'
 
-                // Insérer la réponse correcte
+                // Insère la réponse correcte
                 $query = "INSERT INTO ReponseCorrecte (Id_Question, Reponse_Correcte, Type_Reponse) VALUES (:questionId, :reponseCorrecte, :typeReponse)";
                 $stmt = $mysqlClient->prepare($query);
                 $stmt->bindValue(':questionId', $questionId, PDO::PARAM_INT);
@@ -236,31 +235,21 @@ try {
                 $stmt->execute();
                
 
-                // Si c'est terminer, réinitialiser la session
+                // Si c'est terminer, réinitialise la session
                 if ($isTerminer) {
                     unset($_SESSION['quiz_id']);
                     unset($_SESSION['quiz_niveau']);
-                    echo "<script>alert('Quiz QCM créé avec succès!'); window.location.href='Admin.php';</script>";
-                    exit;
-                } else {
-                    echo "<script>alert('Question QCM ajoutée avec succès!'); window.location.href='Admin.php';</script>";
-                    exit;
                 }
-            } else {
-                error_log("QCM - Champs manquants : Question: $questionText, Choix1: $choix1, Choix2: $choix2, Choix3: $choix3, Choix4: $choix4");
-                echo "<script>alert('Veuillez remplir tous les champs requis pour le QCM!');</script>";
-            }
+            } 
         } elseif ($typeQuiz === 'Vrai/Faux') {
             // Logique pour le Vrai/Faux
             $niveau = $_POST['ElementsVF'] ?? 'Facile';
             $questionText = $_POST['questionVF'] ?? '';
             $reponseCorrecte = $_POST['ReponseVF'] ?? ''; // "Vrai" ou "Faux"
 
-            error_log("Vrai/Faux - Question: $questionText, Niveau: $niveau, Réponse: $reponseCorrecte");
-
-            // Vérifier que tous les champs sont remplis
+            // Vérifie que tous les champs sont remplis
             if (!empty($questionText) && !empty($reponseCorrecte) && ($isQuestionSuivante || $isTerminer)) {
-                // Créer ou récupérer le quiz
+                // Crée ou récupère le quiz
                 if (!isset($_SESSION['quiz_id'])) {
                     $query = "INSERT INTO Quiz (Type_Quiz, Niveau) VALUES (:typeQuiz, :niveau)";
                     $stmt = $mysqlClient->prepare($query);
@@ -271,16 +260,16 @@ try {
                     $_SESSION['quiz_niveau'] = $niveau;
                 }
 
-                // Insérer la question
+                // Insère la question
                 $query = "INSERT INTO Questions (Question_Text, Id_Quiz) VALUES (:questionText, :quizId)";
                 $stmt = $mysqlClient->prepare($query);
                 $stmt->bindValue(':questionText', $questionText, PDO::PARAM_STR);
                 $stmt->bindValue(':quizId', $_SESSION['quiz_id'], PDO::PARAM_INT);
                 $stmt->execute();
-                $questionId = $mysqlClient->lastInsertId();
+                $questionId = $mysqlClient->lastInsertId(); //Récupère le dernier id de la requete générée
               
 
-                // Insérer les choix (toujours "Vrai" et "Faux")
+                // Insère les choix (toujours "Vrai" et "Faux")
                 $choix = ['Vrai', 'Faux'];
                 foreach ($choix as $choixText) {
                     $query = "INSERT INTO Choix (Id_Question, Choix_Text) VALUES (:questionId, :choixText)";
@@ -291,7 +280,7 @@ try {
                    
                 }
 
-                // Insérer la réponse correcte
+                // Insère la réponse correcte
                 $typeReponse = $typeQuiz; // 'Vrai/Faux'
                 $query = "INSERT INTO ReponseCorrecte (Id_Question, Reponse_Correcte, Type_Reponse) VALUES (:questionId, :reponseCorrecte, :typeReponse)";
                 $stmt = $mysqlClient->prepare($query);
@@ -301,19 +290,11 @@ try {
                 $stmt->execute();
                
 
-                // Si c'est terminer, réinitialiser la session
+                // Si c'est terminer, réinitialise la session
                 if ($isTerminer) {
                     unset($_SESSION['quiz_id']);
                     unset($_SESSION['quiz_niveau']);
-                    echo "<script>alert('Quiz Vrai/Faux créé avec succès!'); window.location.href='Admin.php';</script>";
-                    exit;
-                } else {
-                    echo "<script>alert('Question Vrai/Faux ajoutée avec succès!'); window.location.href='Admin.php';</script>";
-                    exit;
-                }
-            } else {
-                error_log("Vrai/Faux - Champs manquants : Question: $questionText, Réponse: $reponseCorrecte");
-                echo "<script>alert('Veuillez remplir tous les champs requis pour le Vrai/Faux!');</script>";
+                } 
             }
         } elseif ($typeQuiz === 'Réponse Libre') {
             // Logique pour Réponse Libre
@@ -323,7 +304,7 @@ try {
 
 
 
-            // Vérifier que tous les champs sont remplis
+            // Vérifie que tous les champs sont remplis
             if (!empty($questionText) && !empty($reponseCorrecte) && ($isQuestionSuivante || $isTerminer)) {
                 // Créer ou récupérer le quiz
                 if (!isset($_SESSION['quiz_id'])) {
@@ -337,7 +318,7 @@ try {
            
                 }
 
-                // Insérer la question
+                // Insère la question
                 $query = "INSERT INTO Questions (Question_Text, Id_Quiz) VALUES (:questionText, :quizId)";
                 $stmt = $mysqlClient->prepare($query);
                 $stmt->bindValue(':questionText', $questionText, PDO::PARAM_STR);
@@ -346,9 +327,8 @@ try {
                 $questionId = $mysqlClient->lastInsertId();
                 
 
-                // Pas de choix à insérer pour Réponse Libre (table Choix reste vide pour cette question)
 
-                // Insérer la réponse correcte
+                // Insère la réponse correcte
                 $typeReponse = $typeQuiz; // 'Réponse Libre'
                 $query = "INSERT INTO ReponseCorrecte (Id_Question, Reponse_Correcte, Type_Reponse) VALUES (:questionId, :reponseCorrecte, :typeReponse)";
                 $stmt = $mysqlClient->prepare($query);
@@ -358,27 +338,20 @@ try {
                 $stmt->execute();
                
 
-                // Si c'est terminer, réinitialiser la session
+                // Si c'est terminer, réinitialise la session
                 if ($isTerminer) {
                     unset($_SESSION['quiz_id']);
                     unset($_SESSION['quiz_niveau']);
-                    echo "<script>alert('Quiz Réponse Libre créé avec succès!'); window.location.href='Admin.php';</script>";
-                    exit;
-                } else {
-                    echo "<script>alert('Question Réponse Libre ajoutée avec succès!'); window.location.href='Admin.php';</script>";
-                    exit;
-                }
-            } else {
-                error_log("Réponse Libre - Champs manquants : Question: $questionText, Réponse: $reponseCorrecte");
-                echo "<script>alert('Veuillez remplir tous les champs requis pour la Réponse Libre!');</script>";
-            }
+                    
+                } 
+            } 
         } else {
             echo "<script>alert('Type de quiz non spécifié!');</script>";
         }
     }
 } catch (Exception $e) {
-    // Afficher l'erreur pour faciliter le débogage
-    error_log("Erreur : " . $e->getMessage());
+
+    error_log("Erreur : " . $e->getMessage()); //En java , on peut utiliser getStackTrace()
 }
 ?>
 </html>
