@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,8 +47,8 @@
 <?php
 
 session_start();
-$EmailAdmin ="Admin123@gmail.com";
-$MDPAdmin ="Admin123";
+$EmailAdmin ="Admin123@gmail.com"; //Email de login pour admin
+$MDPAdmin ="Admin123"; //MDP de login pour admin
 
 try {
     // Connexion à la base de données
@@ -73,35 +73,29 @@ try {
         $Prep->execute();
         $UtilisateursTab = $Prep->fetch(PDO::FETCH_ASSOC);  // Récupère les informations sous forme de tableau "clé :valeur"
 
-        if ($UtilisateursTab) {  // Vérifie si l'utilisateur existe
+        if ($UtilisateursTab) {  
             $HashMDP = $UtilisateursTab['Mdp_User']; // Mot de passe hashé depuis la BDD
 
-            // Vérifier si le mot de passe saisi correspond au hash
+            // Vérifier si le mot de passe saisi correspond au hash dans la BDD ( avec password_verifyc)
             if (password_verify($password, $HashMDP)) {
+
                 // Stocker les informations de l'utilisateur dans la session
                 $_SESSION['Mail_User'] = $email;
                 $_SESSION['Nom_User'] = $UtilisateursTab['Nom_User'];
                 $_SESSION['Prenom_User'] = $UtilisateursTab['Prenom_User'];
                 $_SESSION['NumTel_User'] = $UtilisateursTab['NumTel_User'];
 
-                // Redirection vers la page QuizPage.php
-                header("Location: QuizPage.php");
+            
+                header("Location: QuizPage.php"); //header permet la redirection vers une page
                 exit();
             } 
         } else if($email==$EmailAdmin && $password ==$MDPAdmin){
-            header("Location: Admin.php");
+            header("Location: Admin.php"); //Si Email et MDP correct -> partie admin
         }
         
-        else{
-            echo "Utilisateur non trouvé.";
-        }
-    
 }}catch (Exception $e) {
-    echo "❌ Erreur : " . $e->getMessage();
+    echo "Erreur : " . $e->getMessage();
 }
 ?>
-
-
-
 
 </html>

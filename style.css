@@ -46,8 +46,6 @@
   .logo {
     margin-bottom: 25px; 
     text-align: center;
-   
-
   }
   
   .logo h1 {
@@ -157,9 +155,10 @@
     text-decoration: none;
     color: white;
   }
-  
- 
-  
+
+
+/*-------------------------------Partie basse du container-----------------------------------*/
+
   .divider {
     margin: 25px 0; 
     display: flex; 
