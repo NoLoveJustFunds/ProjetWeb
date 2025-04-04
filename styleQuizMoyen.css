@@ -53,6 +53,7 @@ body{
 
 #Image {
     position: absolute;
+    color: #fab45e;
     display: none;
     width: 70px;
     height:70px;

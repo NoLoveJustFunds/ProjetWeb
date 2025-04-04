@@ -24,7 +24,9 @@ body {
     display: block;
     width: 300px;
     height: 15px;
-    box-shadow: 0 0 15px 5px #283c63; 
+    box-shadow: 0 0 15px 5px #283c63;
+    border: 1px solid #8e93c0;
+    border-radius: 5px; 
 }
 
 #PlacementChrono {
@@ -45,19 +47,19 @@ body {
     margin-right: 10px;
     position: absolute;
     right: 23vw;
-    top: 4vw;
+    top: 5vw;
 }
 
 #Image {
-    width: 70px; 
-    height:70px;
-    display: block;
-    animation: rotateHorizontal 4s linear infinite; 
-    margin-left: 90px;
     position: absolute;
     display: none;
+    width: 70px;
+    height:70px;
+    display: block;
+    animation: rotateHorizontal 4s linear infinite;
+    margin-left: 90px;
+    top: 25px;
     right: 22vw;
-    top: 10px;
 }
 
 @keyframes rotateHorizontal {
@@ -189,4 +191,3 @@ a {
     background-color: #F44336 !important;
     border: 2px solid #D32F2F !important;
 }
-

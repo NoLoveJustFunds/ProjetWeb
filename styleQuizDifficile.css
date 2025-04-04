@@ -39,12 +39,11 @@ body{
     align-items: center;
     justify-content: center;
     margin: 10px auto; 
-
+    
 }
 
 #Temp {
     font-size: 18px;
-    color: #8E2DE2; 
     font-weight: bold;
     display: block; 
     margin-top: 20px;
@@ -52,19 +51,20 @@ body{
     margin-right: 10px;
     position: absolute;
     right: 23vw;
-    top: 4vw;   
+    top: 5vw;   
 }
 
 #Image {
+    color: #8E2DE2; 
     position: absolute;
     display: none;
-    right: 22vw;
-    top: 10px;
-    width: 70px; 
+    width: 70px;
     height:70px;
-    display: block; 
-    animation: rotateHorizontal 4s linear infinite; 
+    display: block;
+    animation: rotateHorizontal 4s linear infinite;
     margin-left: 90px;
+    top: 25px;
+    right: 22vw;
 
 }
 

@@ -233,7 +233,7 @@ function displayQuestion() {
         }
     });
 
-    document.getElementById('questions').value = currentQuestionIndex + 1;
+    document.getElementById('questions').value = currentQuestionIndex;
 
     startTimer();
 }
