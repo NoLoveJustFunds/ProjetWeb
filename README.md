@@ -1,2 +1,5 @@
 # ProjetWeb
-# ProjetWeb
+
+Le projet consiste à développer une application web interactive de quiz destinée à deux types d’utilisateurs : les administrateurs et les utilisateurs finaux. L’objectif principal est de permettre aux administrateurs de créer, modifier et supprimer des quiz, en y ajoutant divers types de questions comme des QCM, des questions de type vrai/faux ou encore des questions ouvertes avec des réponses attendues. 
+
+Les utilisateurs peuvent s’inscrire via un formulaire sécurisé, se connecter à leur espace personnel, consulter leur profil et accéder à l’historique de leurs quiz passés. Une fois connectés, ils peuvent participer aux quiz proposés, avec un affichage dynamique des questions, une barre de progression, un chronomètre pour renforcer le défi, et un retour immédiat sur leurs réponses (bonnes ou mauvaises). À la fin de chaque quiz, un score est calculé en temps réel et intégré à un classement général.Le joueur peut alors connaitre sa position dans le classement en fonction de celle des joueurs.

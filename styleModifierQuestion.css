@@ -1,0 +1,140 @@
+
+
+body {
+    font-family: "Baloo Bhai 2", sans-serif;
+    background-image: url("Images/FondAccueil.jpg"); 
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    color: white;
+}
+
+
+h1 {
+    display: block;
+    margin: 50px auto;
+    width: 400px;
+    text-align: center;
+    font-size: 40px;
+    padding: 10px;
+    color: rgb(212, 212, 212);
+}
+
+/* -------------------------------------------Partie Container ----------------------------------------*/
+.container {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #8e93c0;
+    width: 90%;
+    max-width: 800px;
+    margin: 15px auto;
+    padding: 20px;
+    border-radius: 10px;
+    transition: box-shadow 0.3s ease;
+    box-shadow: 0 0 15px 5px #283c63;
+    position: relative;
+    z-index: 2;
+    background-color: #34495e;
+}
+
+
+.form-group {
+    margin-bottom: 30px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+
+.form-group textarea,
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #8e93c0;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background: #3a4b6a;
+    color: white;
+    font-size: 16px;
+    font-family: "Baloo Bhai 2", sans-serif;
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.form-group input[type="text"] {
+    min-height: 40px;
+}
+
+.form-group textarea:focus,
+.form-group input[type="text"]:focus {
+    outline: 1px solid #283c63;
+    box-shadow: 0 0 15px 5px #283c63;
+}
+
+
+.choix-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.choix-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.choix-item label {
+    min-width: 150px;
+    font-size: 18px;
+    color: white;
+}
+
+
+.form-actions {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.btn-enregistrer {
+    padding: 10px 20px;
+    border: 1px solid #8e93c0;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #8E2DE2, #4A00E0);
+    color: white;
+    font-size: 20px;
+    font-family: "Baloo Bhai 2", sans-serif;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-enregistrer:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(142, 45, 226, 0.3);
+}
+
+.btn-annuler {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: 1px solid #8e93c0;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #f39c12, #e68a00);
+    color: white;
+    font-size: 20px;
+    font-family: "Baloo Bhai 2", sans-serif;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-annuler:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(243, 156, 18, 0.3);
+}

@@ -90,7 +90,6 @@ function TimeOut() {
 
 function displayQuestion() {
     if (currentQuestionIndex >= quizData.length) {
-
         document.getElementById('IntituleQuestion').textContent = "Quiz terminé !";
         document.getElementById('ElementReponse2').style.display = 'none';
         document.getElementById('TexteDescriptif').style.display = 'block';
@@ -105,20 +104,16 @@ function displayQuestion() {
         window.quizTotal = quizData.length;
 
         document.getElementById('questions').value = quizData.length;
-      
 
         const scoreInput = document.getElementById('scoreInput');
         const totalInput = document.getElementById('totalInput');
         if (scoreInput && totalInput) {
-
             scoreInput.value = window.quizScore;
             totalInput.value = window.quizTotal;
-      
-        } 
+        }
 
         return;
     }
-
 
     clearInterval(timer);
     timeLeft = 20;
@@ -157,18 +152,23 @@ function displayQuestion() {
     }
 
     // Réinitialise l'input pour la prochaine question
-
     inputReponse.disabled = false;
     inputReponse.style.backgroundColor = 'white';
     inputReponse.value = '';
-    inputReponse.style.margin= "20px";
-    inputReponse.style.fontSize ="15px"
+    inputReponse.style.margin = "20px";
+    inputReponse.style.fontSize = "15px";
 
     // Ajoute un écouteur d'événement pour redimensionner la taille du "blanc"
     inputReponse.addEventListener('input', ajusterTailleInput);
 
-    // Initialise le dimensionnement ( la fonction va redimmensioner la taille de l'input)
+    // Initialise le dimensionnement
     ajusterTailleInput();
+
+    // Supprime l'ancien conteneur du bouton s'il existe
+    const ancienContainerBouton = document.getElementById('containerBoutonValidation');
+    if (ancienContainerBouton) {
+        ancienContainerBouton.remove();
+    }
 
     // Crée le container pour le bouton
     const containerBouton = document.createElement('div');
@@ -179,23 +179,28 @@ function displayQuestion() {
     btnValider.textContent = 'Valider';
     btnValider.id = 'boutonValidation';
     btnValider.style.margin = "20px";
-    btnValider.style.fontSize = "15px"; // Augmente la taille du texte
+    btnValider.style.fontSize = "15px";
     btnValider.style.padding = "3px";
-
 
     // Ajoute le bouton au container
     containerBouton.appendChild(btnValider);
 
     // Ajoute le conteneur du bouton après l'élément IntituleQuestion2
-    intituleQuestion2.parentNode.appendChild(containerBouton);
+    const parentElement = intituleQuestion2.parentNode;
+    if (parentElement) {
+        const existingContainer = parentElement.querySelector('#containerBoutonValidation');
+        if (existingContainer) {
+            existingContainer.remove(); // Supprime tout conteneur existant
+        }
+        parentElement.appendChild(containerBouton);
+    }
 
-   
     // Fonction de validation
     function validerReponse() {
         const reponseUtilisateur = inputReponse.value.trim();
-        const reponseCorrecte = currentQuestion.correctAnswer ? currentQuestion.correctAnswer.toString().trim() : ''; //Supprime les espaces
+        const reponseCorrecte = currentQuestion.correctAnswer ? currentQuestion.correctAnswer.toString().trim() : '';
 
-        if (!reponseCorrecte) { //Si ce n'est pas la bonne réponse 
+        if (!reponseCorrecte) {
             inputReponse.style.backgroundColor = '#F44336';
             inputReponse.value = "Réponse manquante";
             return;
@@ -203,17 +208,14 @@ function displayQuestion() {
 
         clearInterval(timer);
 
-
         inputReponse.disabled = true;
         btnValider.disabled = true;
 
         if (reponseUtilisateur.toLowerCase() === reponseCorrecte.toLowerCase()) {
-           
             inputReponse.style.backgroundColor = '#4CAF50'; // Réponse correcte
-            score++; 
+            score++;
         } else {
-     
-            inputReponse.style.backgroundColor = '#F44336';// Réponse incorrecte
+            inputReponse.style.backgroundColor = '#F44336'; // Réponse incorrecte
             inputReponse.value = reponseCorrecte; // Montre la bonne réponse
         }
 
@@ -222,7 +224,6 @@ function displayQuestion() {
             displayQuestion();
         }, 2000);
     }
-
 
     btnValider.addEventListener('click', validerReponse); // Validation avec le clic
 

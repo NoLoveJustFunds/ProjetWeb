@@ -1,6 +1,6 @@
 body{
     font-family: "Baloo Bhai 2";
-    background-image:url("FondAccueil.jpg"); 
+    background-image:url("Images/FondAccueil.jpg"); 
     min-height: 100vh;
 }
 
@@ -142,6 +142,10 @@ input:focus, textarea:focus, select:focus {
 
 }
 
+.colorierUser td {
+    color: green;
+    font-weight: bold;
+}
 /*---------------------------------------Bouton return--------------------------------------*/
 
 #Retour{

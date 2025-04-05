@@ -1,0 +1,165 @@
+body {
+    font-family: "Baloo Bhai 2", sans-serif;
+    background-image: url("Images/FondAccueil.jpg"); 
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    color: white;
+}
+
+h1 {
+    display: block;
+    margin: 50px auto;
+    width: 470px;
+    text-align: center;
+    font-size: 30px;
+    padding: 10px;
+    color: rgb(212, 212, 212);
+}
+
+
+/*--------------------------------------------Partie Container-------------------------------------*/
+.container {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #8e93c0;
+    width: 90%;
+    max-width: 1200px;
+    margin: 15px auto;
+    padding: 20px;
+    border-radius: 10px;
+    transition: box-shadow 0.3s ease;
+    box-shadow: 0 0 15px 5px #283c63;
+    position: relative;
+    z-index: 2;
+    background-color: #34495e;
+}
+
+.filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.filter-group label {
+    font-size: 18px;
+    color: white;
+}
+
+.filter-group input[type="text"],
+.filter-group select {
+    padding: 8px;
+    border: 1px solid #8e93c0;
+    border-radius: 5px;
+    background: #3a4b6a;
+    color: white;
+    font-size: 16px;
+    font-family: "Baloo Bhai 2", sans-serif;
+    width: 200px;
+}
+
+.filter-group input[type="text"]:focus,
+.filter-group select:focus {
+    outline: 1px solid #283c63;
+    box-shadow: 0 0 15px 5px #283c63;
+}
+
+.btn-filter {
+    padding: 8px 15px;
+    border: 1px solid #8e93c0;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #4CAF50, #45a049);
+    color: white;
+    font-size: 16px;
+    font-family: "Baloo Bhai 2", sans-serif;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-filter:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(76, 175, 80, 0.3);
+}
+
+#questionsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 8px;
+    border: 1px solid #8e93c0;
+    text-align: center;
+    font-size: 15px;
+}
+
+th {
+    background-color: #283c63;
+    color: white;
+    font-weight: bold;
+}
+
+td {
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.btn-modifier {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 0 5px;
+    margin-bottom: 10px;
+    border: 1px solid #8e93c0;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #8E2DE2, #4A00E0);
+    color: white;
+    font-size: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-modifier:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(142, 45, 226, 0.3);
+}
+
+.btn-supprimer {
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: 1px solid #8e93c0;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #f39c12, #e68a00);
+    color: white;
+    font-size: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-supprimer:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(243, 156, 18, 0.3);
+}
+
+#AdminLogoutButton {
+    background: linear-gradient(to bottom, #66C3D1, #2A7FBA);
+    color: white;
+    font-size: 13px;
+    border: 1px solid #8e93c0; 
+    border-radius: 5px;
+    box-shadow: 0 0 15px 5px #283c63;
+    padding: 7px;
+    cursor: pointer;
+    position: absolute;
+    right: 25px;
+    top: 40px;
+}

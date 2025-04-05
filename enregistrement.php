@@ -12,7 +12,7 @@
 
 <div class="logo">
             <div class="profile-icon">
-                <img src="profilTest.png" id="redimension">
+                <img src="Images/profilTest.png" id="redimension">
             </div>
         </div>
 

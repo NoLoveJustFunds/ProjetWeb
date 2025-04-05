@@ -4,7 +4,7 @@
 }
 
 body {
-    background-image: url("FondAccueil.jpg"); 
+    background-image: url("Images/FondAccueil.jpg"); 
     background-repeat: no-repeat;
     background-size: cover;
     color: #e0e0e0; 
@@ -135,7 +135,7 @@ input[type="radio"] {
     margin-top: auto; /* Pousse les boutons vers le bas */
 }
 
-.Suivant ,#DeconnexionAdmin {
+.Suivant ,#DeconnexionAdmin ,#ModifSup_Admin{
     background: linear-gradient(90deg, #8E2DE2, #4A00E0);
     color: white;
     font-size: 13px;
@@ -161,13 +161,32 @@ input[type="radio"] {
     padding: 7px;
     cursor: pointer;
     position: absolute;
-    left : 1260px;
+    right : 80px;
     top: 50px;
     
+}
+#ModifSup_Admin{
+    background: linear-gradient(to bottom, #66C3D1, #2A7FBA);
+    color: white;
+    font-size: 13px;
+    border: 1px solid #8e93c0; 
+    border-radius: 5px;
+    box-shadow: 0 0 15px 5px #283c63;
+    padding: 7px;
+    cursor: pointer;
+    position: absolute;
+    left: 80px;
+    top: 50px;
+
 }
 
 
 #DeconnexionAdmin a {
+    color: white;
+    text-decoration: none;
+}
+
+#ModifSup_Admin a {
     color: white;
     text-decoration: none;
 }

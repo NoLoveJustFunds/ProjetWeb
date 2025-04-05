@@ -41,9 +41,11 @@ try {
     $UtilisateursTab2 = $PrepPosJoueur->fetch(PDO::FETCH_ASSOC); 
 
 
-    $AffichageClassement = 'SELECT Utilisateurs.Nom_User ,Utilisateurs.Prenom_User ,Score.Score_User  FROM Utilisateurs
-    JOIN Score ON Score.Mail_User = Utilisateurs.Mail_User
-    ORDER BY Score.Score_User DESC';
+    $AffichageClassement = 'SELECT Utilisateurs.Nom_User, Utilisateurs.Prenom_User, Utilisateurs.Mail_User, Score.Score_User  
+                            FROM Utilisateurs
+                            JOIN Score ON Score.Mail_User = Utilisateurs.Mail_User
+                            ORDER BY Score.Score_User DESC';
+
 
     $PrepAffichage = $mysqlClient->prepare($AffichageClassement);
     $PrepAffichage->execute();
@@ -73,13 +75,19 @@ try {
 
                     <?php
                         // Afficher les lignes du classement
-                        while($ligne = $PrepAffichage->fetch(PDO::FETCH_ASSOC)){ //Parcourt ligne par ligne le resultat de la requete SQL
-                            echo "<tr>";
-                            echo "<td>" . $ligne['Nom_User'] . "</td>"; 
-                            echo "<td>" . $ligne['Prenom_User'] . "</td>";
-                            echo "<td>" . $ligne['Score_User'] . "</td>";
+                        while($ligne = $PrepAffichage->fetch(PDO::FETCH_ASSOC)){
+                            $isCurrentUser = ($ligne['Mail_User'] === $email); // Compare les emails
+                        
+                            // Si c'est le joueur connecté on le met en couleur
+                            $rowClass = $isCurrentUser ? 'colorierUser' : ''; //Sinon pas de coloration
+                        
+                            echo "<tr class=\"$rowClass\">";
+                            echo "<td>" . htmlspecialchars($ligne['Nom_User']) . "</td>"; 
+                            echo "<td>" . htmlspecialchars($ligne['Prenom_User']) . "</td>";
+                            echo "<td>" . htmlspecialchars($ligne['Score_User']) . "</td>";
                             echo "</tr>";
                         }
+                        
                     ?>
 
                 </table>

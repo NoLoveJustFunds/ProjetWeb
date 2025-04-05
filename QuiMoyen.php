@@ -16,7 +16,7 @@
     </div>
     <div id="PlacementChrono">
         <span id="Temp">20</span>
-        <img src="FondChrono.png" id="Image">
+        <img src="Images/FondChrono.png" id="Image">
     </div>
 
     <!-- Container pour les questions et réponses -->
