@@ -144,12 +144,12 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Création de Quiz</title>
+    <title>Création de Questions</title>
     <link rel="stylesheet" href="styleAdmin.css">
 </head>
 <body>
     <header>
-        <h1 id="TITRE">Création de Quiz</h1>
+        <h1 id="TITRE">Création de Questions</h1>
         <div id="BlockDeconnexion">
             <a href="index.php"><button id="DeconnexionAdmin">Déconnexion</button></a>
         </div>
