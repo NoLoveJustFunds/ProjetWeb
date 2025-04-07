@@ -41,7 +41,7 @@ if ($question['Type_Quiz'] === 'QCM') {
     $stmtChoix = $mysqlClient->prepare($queryChoix);
     $stmtChoix->execute(['idQuestion' => $idQuestion]);
     $choixResult = $stmtChoix->fetchAll(PDO::FETCH_COLUMN);
-    for ($i = 0; $i < min(4, count($choixResult)); $i++) { //Prendra tous les choix sauf si >4 alors il prendre 4
+    for ($i = 0; $i < min(4, count($choixResult)); $i++) { //Prendra tous les choix sauf si >4 alors il prendra 4
         $choix[$i] = $choixResult[$i];
     }
 }
@@ -146,7 +146,7 @@ if (isset($_POST['update_question'])) {
                     document.querySelector('input[name=choix_4]').value
                 ];
                 const filledChoix = choixInputs.filter(choix => choix.trim() !== '').length;
-                if (filledChoix < 2) { //Il doit y avoir au moins 2 propositions
+                if (filledChoix < 2) { //Il doit y avoir au moins 2 propositions pour le QCM
                     return;
                 }
 

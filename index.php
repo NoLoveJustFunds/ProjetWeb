@@ -67,7 +67,7 @@ try {
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
 
-        // Préparation de la requête SQL pour récupérer les informations du joueur
+        
         $DataUser = 'SELECT Nom_User, Prenom_User, NumTel_User, Mdp_User FROM Utilisateurs WHERE Mail_User = :email';
 
         $Prep = $mysqlClient->prepare($DataUser);

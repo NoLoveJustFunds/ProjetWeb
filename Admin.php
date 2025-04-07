@@ -12,11 +12,11 @@ try {
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['question_suivante'])) {
         $typeQuiz = $_POST['typeQuiz'] ?? '';
 
-        // Vérifier si le type de quiz a changé
+        // Vérifie si le type de quiz a changé
         if (!isset($_SESSION['quiz_type']) || $_SESSION['quiz_type'] !== $typeQuiz) {
-            // Si le type de quiz a changé, réinitialiser quiz_id pour créer un nouveau quiz
+            // Si le type de quiz a changé, réinitialise le quiz_id pour créer un nouveau quiz
             unset($_SESSION['quiz_id']);
-            $_SESSION['quiz_type'] = $typeQuiz; // Stocker le nouveau type de quiz
+            $_SESSION['quiz_type'] = $typeQuiz; // Stocke le nouveau type de quiz
         }
 
         if ($typeQuiz === 'QCM') {
@@ -40,13 +40,12 @@ try {
                     $_SESSION['quiz_niveau'] = $niveau;
                 }
 
-                // Insérer la question
+                // Insère la question
                 $query = "INSERT INTO Questions (Question_Text, Id_Quiz) VALUES (:questionText, :quizId)";
                 $stmt = $mysqlClient->prepare($query);
                 $stmt->execute([':questionText' => $questionText, ':quizId' => $_SESSION['quiz_id']]);
                 $questionId = $mysqlClient->lastInsertId();
 
-                // Insérer les choix
                 $choix = [$choix1, $choix2, $choix3, $choix4];
                 foreach ($choix as $choixText) {
                     $query = "INSERT INTO Choix (Id_Question, Choix_Text) VALUES (:questionId, :choixText)";
@@ -54,7 +53,6 @@ try {
                     $stmt->execute([':questionId' => $questionId, ':choixText' => $choixText]);
                 }
 
-                // Insérer la réponse correcte
                 $reponseCorrecte = $choix[$reponseIndex - 1];
                 $query = "INSERT INTO ReponseCorrecte (Id_Question, Reponse_Correcte, Type_Reponse) VALUES (:questionId, :reponseCorrecte, :typeReponse)";
                 $stmt = $mysqlClient->prepare($query);
@@ -80,13 +78,13 @@ try {
                     $_SESSION['quiz_niveau'] = $niveau;
                 }
 
-                // Insérer la question
+                // Insère la question
                 $query = "INSERT INTO Questions (Question_Text, Id_Quiz) VALUES (:questionText, :quizId)";
                 $stmt = $mysqlClient->prepare($query);
                 $stmt->execute([':questionText' => $questionText, ':quizId' => $_SESSION['quiz_id']]);
                 $questionId = $mysqlClient->lastInsertId();
 
-                // Insérer les choix (Vrai/Faux)
+
                 $choix = ['Vrai', 'Faux'];
                 foreach ($choix as $choixText) {
                     $query = "INSERT INTO Choix (Id_Question, Choix_Text) VALUES (:questionId, :choixText)";
@@ -94,7 +92,7 @@ try {
                     $stmt->execute([':questionId' => $questionId, ':choixText' => $choixText]);
                 }
 
-                // Insérer la réponse correcte
+           
                 $query = "INSERT INTO ReponseCorrecte (Id_Question, Reponse_Correcte, Type_Reponse) VALUES (:questionId, :reponseCorrecte, :typeReponse)";
                 $stmt = $mysqlClient->prepare($query);
                 $stmt->execute([':questionId' => $questionId, ':reponseCorrecte' => $reponseCorrecte, ':typeReponse' => $typeQuiz]);
@@ -119,13 +117,13 @@ try {
                     $_SESSION['quiz_niveau'] = $niveau;
                 }
 
-                // Insérer la question
+                // Insère la question
                 $query = "INSERT INTO Questions (Question_Text, Id_Quiz) VALUES (:questionText, :quizId)";
                 $stmt = $mysqlClient->prepare($query);
                 $stmt->execute([':questionText' => $questionText, ':quizId' => $_SESSION['quiz_id']]);
                 $questionId = $mysqlClient->lastInsertId();
 
-                // Insérer la réponse correcte
+      
                 $query = "INSERT INTO ReponseCorrecte (Id_Question, Reponse_Correcte, Type_Reponse) VALUES (:questionId, :reponseCorrecte, :typeReponse)";
                 $stmt = $mysqlClient->prepare($query);
                 $stmt->execute([':questionId' => $questionId, ':reponseCorrecte' => $reponseCorrecte, ':typeReponse' => $typeQuiz]);

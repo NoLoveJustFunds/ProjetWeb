@@ -79,7 +79,7 @@
         $userData = $fetchStmt->fetch(PDO::FETCH_ASSOC); //Récupère la première ligne de la requete SQL
 
         if ($userData) {
-            $_SESSION['Score_User'] = $userData['Score_User']; //Associe a la variable de la session , le score du joueru
+            $_SESSION['Score_User'] = $userData['Score_User']; //Associe a la variable de la session , le score du joueur
             $_SESSION['Total_Play'] = $userData['Total_Play'];
             
         } else {
@@ -93,12 +93,11 @@
         $_SESSION['Total_Play'] = 0;
     }
 
-    // Gère la soumission du score (déclenchée manuellement par le bouton Retour)
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       
 
         if (isset($_POST['score']) && isset($_POST['total'])) { //Verifie su les données existe déjà
-            $score = (int)$_POST['score'];
+            $score = (int)$_POST['score']; //On cast en int pour être sur que c'est un nombre et non une chaine
             $total = (int)$_POST['total'];
            
             try {
@@ -106,7 +105,7 @@
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
                 ]);
 
-                // Vérifie si l'utilisateur a déjà une entrée dans la table Score
+              
 
                 $checkQuery = "SELECT COUNT(*) FROM Score WHERE Mail_User = :mail";
                 $checkStmt = $mysqlClient->prepare($checkQuery);
@@ -119,7 +118,7 @@
 
                     // Met à jour l'entrée existante en additionnant les valeurs
                     $updateQuery = "UPDATE Score SET Score_User = Score_User + :score, Total_Play = Total_Play + :total WHERE Mail_User = :mail";
-                    //Pour la requet j'ai mis pas mal de temsp  à trouver le fait qu'il faut ajouter et non remplacer
+                    //Pour la requet j'ai mis pas mal de temps  à trouver le fait qu'il faut ajouter et non remplacer
                     $updateStmt = $mysqlClient->prepare($updateQuery);
                     $updateStmt->bindParam(':score', $score, PDO::PARAM_INT);
                     $updateStmt->bindParam(':total', $total, PDO::PARAM_INT);
@@ -127,8 +126,7 @@
                     $updateStmt->execute();
                    
                 } else {
-                    // Insère une nouvelle entrée
-
+    
                     $insertQuery = "INSERT INTO Score (Score_User, Total_Play, Mail_User) VALUES (:score, :total, :mail)";
                     $insertStmt = $mysqlClient->prepare($insertQuery);
                     $insertStmt->bindParam(':score', $score, PDO::PARAM_INT);

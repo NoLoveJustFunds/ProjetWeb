@@ -121,7 +121,7 @@
                     $updateStmt->execute();
                     
                 } else {
-                    // Insère une nouvelle entrée
+                    // Insère une nouvelle entrée si l'user n'existe pas 
                     $insertQuery = "INSERT INTO Score (Score_User, Total_Play, Mail_User) VALUES (:score, :total, :mail)";
                     $insertStmt = $mysqlClient->prepare($insertQuery);
                     $insertStmt->bindParam(':score', $score, PDO::PARAM_INT);

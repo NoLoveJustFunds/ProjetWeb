@@ -74,15 +74,17 @@ try {
                     </tr>
 
                     <?php
-                        // Afficher les lignes du classement
+                        // Affiche les lignes du classement ( j'ai pris pas mal de temps à penser qu'il faut utiliser un boucle)
                         while($ligne = $PrepAffichage->fetch(PDO::FETCH_ASSOC)){
                             $isCurrentUser = ($ligne['Mail_User'] === $email); // Compare les emails
                         
                             // Si c'est le joueur connecté on le met en couleur
-                            $rowClass = $isCurrentUser ? 'colorierUser' : ''; //Sinon pas de coloration
+                            $rowClass = $isCurrentUser ? 'colorierUser' : ''; //ternaire -> si joueur connecté, on colorie la ligne
+                            // Sinon pas de couleur sur la ligne
                         
                             echo "<tr class=\"$rowClass\">";
-                            echo "<td>" . htmlspecialchars($ligne['Nom_User']) . "</td>"; 
+                            echo "<td>" . htmlspecialchars($ligne['Nom_User']) . "</td>"; //J'ai regarder sur plusieurs site ,
+                            //que htmlspecialchars est recommandé pour récupérer les données et les injecter sous forme de tableau dans la page
                             echo "<td>" . htmlspecialchars($ligne['Prenom_User']) . "</td>";
                             echo "<td>" . htmlspecialchars($ligne['Score_User']) . "</td>";
                             echo "</tr>";

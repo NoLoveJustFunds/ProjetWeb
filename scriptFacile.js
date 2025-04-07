@@ -3,7 +3,7 @@ let quizData = [];
 let score = 0;
 let timer; // Variable pour stocker l'intervalle du chronomètre
 let timeLeft = 20; // Temps initial en secondes
-let isRunning = false; // Variable pour suivre l'état du chronomètre
+let isRunning = false; 
 
 function loadQuizData() {
     
@@ -80,7 +80,7 @@ function TimeOut() {
         }
     });
 
-    // Passer à la question suivante après un délai de 2 secondes
+  
     setTimeout(() => {
         currentQuestionIndex++;
         displayQuestion();
@@ -126,7 +126,7 @@ function displayQuestion() {
     }
     isRunning = false; 
 
-    //Une boucle aurait plus etre envisageable 
+    //Une boucle aurait plus etre envisageable  mais j'ai préféré jouer la sécurité 
 
     const currentQuestion = quizData[currentQuestionIndex];
     const questionContainer = document.getElementById('IntituleQuestion');
@@ -165,25 +165,25 @@ function displayQuestion() {
     startTimer(); //Nouveau chrono pour la question précédente
 }
 
-//----------------------------------Selection et verifiaction du choix----------------------------------------------------------//
+//----------------------------------Selection et verification du choix----------------------------------------------------------//
 
 function selectChoice(bouton) {
     
-    const selectedAnswer = bouton.textContent.trim(); //Supprime les espaces
+    const selectedAnswer = bouton.textContent.trim(); //Supprime les espaces avec trim marche aussi en SQL 
     const currentQuestion = quizData[currentQuestionIndex];
     const correctAnswer = currentQuestion.correctAnswer ? currentQuestion.correctAnswer.trim() : null;
 
   
     clearInterval(timer);
 
-    // Désactiver les boutons pour éviter plusieurs clics
+    // Désactive les boutons pour éviter plusieurs clics(quand la réponse a été choisie)
     document.getElementById('Bouton1').disabled = true;
     document.getElementById('Bouton2').disabled = true;
     document.getElementById('Bouton3').disabled = true;
     document.getElementById('Bouton4').disabled = true;
 
-    // Vérifier la réponse sélectionnée
-    if (correctAnswer && selectedAnswer === correctAnswer) {
+
+    if (correctAnswer && selectedAnswer === correctAnswer) {    // Vérifier la réponse sélectionnée si correcte
        
         bouton.classList.add('correct'); //Bonne réponse en vert
         score++;

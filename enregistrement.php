@@ -79,7 +79,7 @@ try {
         // Hashage du mot de passe
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        // Préparation de la requête SQL
+        
         $sqlQuery = 'INSERT INTO Utilisateurs (Nom_User, Prenom_User, NumTel_User, Mail_User, Mdp_User) 
                      VALUES (:name, :surname, :phoneNumber, :email, :password)';
 

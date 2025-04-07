@@ -153,7 +153,6 @@
                     
                 }
 
-                // Rediriger vers QuizPage.php après l'enregistrement
             
                 header("Location: QuizPage.php");
                 exit;

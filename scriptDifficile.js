@@ -20,7 +20,7 @@ function loadQuizData() {
     document.getElementById('Retour').style.display = 'none';
     document.getElementById('PlacementChrono').style.display = 'block';
 
-    displayQuestion();
+    displayQuestion(); //Appel de la fonction pour afficher les questions
 }
 
 /*-----------------------------------------Fonction du chrono------------------------------------------*/ 
@@ -41,7 +41,7 @@ function startTimer() {
             timeLeft--;
             if (tempElement) {
                 tempElement.innerText = timeLeft;
-                if (timeLeft <= 10) {
+                if (timeLeft <= 10) { //Met en rouge le chrono si < 10 secondes
                     tempElement.style.color = "#F44336";
                 } else {
                     tempElement.style.color = "#8E2DE2";
@@ -67,18 +67,18 @@ function TimeOut() {
     const inputReponse = document.getElementById("reponseUtilisateur");
     const btnValider = document.getElementById("boutonValidation");
 
-    // Désactive l'input et le bouton
+    // Désactive l'input et le bouton des que le temps est écoulé
     if (inputReponse) {
         inputReponse.disabled = true;
         inputReponse.style.backgroundColor = '#F44336';
         const currentQuestion = quizData[currentQuestionIndex];
-        inputReponse.value = currentQuestion.correctAnswer; // Affiche la bonne réponse
+        inputReponse.value = currentQuestion.correctAnswer; // Permet d'afficher la bonne réponse
     }
     if (btnValider) {
         btnValider.disabled = true;
     }
 
-    // Passe à la question suivante après un délai de 2 secondes
+    // Passe à la question suivante après un délai de 2 secondes( le temps que l'user voit la réponse)
     setTimeout(() => {
         currentQuestionIndex++;
         displayQuestion();
@@ -133,7 +133,7 @@ function displayQuestion() {
     document.getElementById('PlacementChrono').style.display = 'block';
     questionContainer.textContent = "Complétez la phrase";
 
-    // Affiche la question telle quelle, et ajouter un champ de saisie en dessous
+    // Affiche la question telle quelle, et ajouter un champ de saisie en dessous(j'ai utiliser la documenet pour injecter dans html)
     intituleQuestion2.innerHTML = `
         <div class="question-text" style="font-size: 18px;">${currentQuestion.question}</div>
         <input 
@@ -146,25 +146,21 @@ function displayQuestion() {
 
     // Récupération de l'input
     const inputReponse = document.getElementById("reponseUtilisateur");
-    if (!inputReponse) {
-        console.error("Erreur : Le champ de saisie reponseUtilisateur n'a pas été créé.");
-        return;
-    }
 
-    // Réinitialise l'input pour la prochaine question
+    
+    // Réinitialise l'input pour la prochaine question et personalisation de l'input avec .style
     inputReponse.disabled = false;
     inputReponse.style.backgroundColor = 'white';
     inputReponse.value = '';
     inputReponse.style.margin = "20px";
     inputReponse.style.fontSize = "15px";
 
-    // Ajoute un écouteur d'événement pour redimensionner la taille du "blanc"
+    // Ajoute un écouteur d'événement pour redimensionner la taille du "blanc"(J'ai mis pas mal de temps à comprendre le fait qu'il faut une autre focntion)
     inputReponse.addEventListener('input', ajusterTailleInput);
 
-    // Initialise le dimensionnement
     ajusterTailleInput();
 
-    // Supprime l'ancien conteneur du bouton s'il existe
+    // Supprime l'ancien conteneur du bouton s'il existe (J'ai eu un probleme avec l'accumulation de bouton valider)
     const ancienContainerBouton = document.getElementById('containerBoutonValidation');
     if (ancienContainerBouton) {
         ancienContainerBouton.remove();
@@ -182,7 +178,7 @@ function displayQuestion() {
     btnValider.style.fontSize = "15px";
     btnValider.style.padding = "3px";
 
-    // Ajoute le bouton au container
+   
     containerBouton.appendChild(btnValider);
 
     // Ajoute le conteneur du bouton après l'élément IntituleQuestion2
@@ -253,7 +249,7 @@ function ajusterTailleInput() {
     mesureSpan.style.font = window.getComputedStyle(document.body).font;
     document.body.appendChild(mesureSpan);
 
-    // Mesure la longueur du texte
+    // Mesure la longueur du texte pour ajuster la taille de l'input
     mesureSpan.textContent = inputReponse.value || '_____';
 
     // Ajuste la largeur de l'input
@@ -262,9 +258,9 @@ function ajusterTailleInput() {
         100
     );
 
-    // Défini la largeur et hauteur
-    inputReponse.style.minWidth = '125px'; // min
-    inputReponse.style.maxWidth = '250px'; //max
+
+    inputReponse.style.minWidth = '125px'; // min de la hauteur
+    inputReponse.style.maxWidth = '250px'; //max de la hauteur
     inputReponse.style.width = `${largeur}px`;
 
 

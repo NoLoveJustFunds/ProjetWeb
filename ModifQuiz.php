@@ -47,7 +47,7 @@ $quizTypesStmt = $dbConnection->prepare($quizTypesQuery);
 $quizTypesStmt->execute();
 $availableQuizTypes = $quizTypesStmt->fetchAll(PDO::FETCH_COLUMN); // Renvoie un tableau contenant uniquement la colonne "Type_Quiz"
 
-// Récupération des filtres passés en GET (recherche par nom + type de quiz)
+// Récupération des filtres passés en GET 
 $questionNameFilter = isset($_GET['search_text']) ? trim($_GET['search_text']) : '';
 $quizTypeFilter = isset($_GET['search_type']) ? trim($_GET['search_type']) : '';
 

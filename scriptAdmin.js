@@ -1,7 +1,7 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     
-    // Vérifie s'il y a un message de succès dans l'URL ( pour enchainer la création de question)
+    // Vérifie s'il y a un message de succès dans l'URL ( pour enchainer la création de question , j'ai trouvé sur un forum)
     const urlParams = new URLSearchParams(window.location.search);
 
     if (urlParams.has('success')) {
