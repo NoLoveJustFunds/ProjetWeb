@@ -4,7 +4,7 @@ Le projet consiste à développer une application web interactive de quiz destin
 
 Les utilisateurs peuvent s’inscrire via un formulaire sécurisé, se connecter à leur espace personnel, consulter leur profil et accéder à l’historique de leurs quiz passés. Une fois connectés, ils peuvent participer aux quiz proposés, avec un affichage dynamique des questions, une barre de progression, un chronomètre pour renforcer le défi, et un retour immédiat sur leurs réponses (bonnes ou mauvaises). À la fin de chaque quiz, un score est calculé en temps réel et intégré à un classement général.Le joueur peut alors connaitre sa position qui apparaitra en vert dans le classement en fonction de celle des joueurs.
 
-
+Les fichiers QuizFacile.php , QuizMoyen.php , QuizDifficile.php correspondent respectivement au type de quiz QCM , Vrai/Faux et Réponse Libre.
 
 -----------------------------------Instructions d'installation------------------------------------------------------
 
